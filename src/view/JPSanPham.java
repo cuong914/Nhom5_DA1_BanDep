@@ -459,7 +459,7 @@ if (confirmResult == JOptionPane.YES_OPTION) {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Số lượng và giá phải là số");
+            JOptionPane.showMessageDialog(this, "Số lượng và giá phải là số"); 
             return;
         }
         if (sl.equals("") || gia.equals("")) {
