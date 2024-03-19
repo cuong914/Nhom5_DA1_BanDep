@@ -12,7 +12,7 @@ public class DBConnect {
                                       jdbc:sqlserver://localhost:1433;databaseName=DuAn1;
                                       encrypt=true;trustServerCertificate=true;""";
     private static final String user = "sa";
-    private static final String password = "1";
+    private static final String password = "2004";
 
     //Phần sẽ chạy trước cả hàm main
     static {
