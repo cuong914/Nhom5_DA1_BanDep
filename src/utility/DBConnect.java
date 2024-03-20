@@ -11,8 +11,8 @@ public class DBConnect {
     private static final String url = """
                                       jdbc:sqlserver://localhost:1433;databaseName=DuAn1;
                                       encrypt=true;trustServerCertificate=true;""";
-    private static final String user = "sa";
-    private static final String password = "2004";
+    private static final String user = "sa4";
+    private static final String password = "1";
 
     //Phần sẽ chạy trước cả hàm main
     static {
