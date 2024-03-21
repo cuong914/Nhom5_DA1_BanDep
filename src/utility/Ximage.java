@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import javax.swing.ImageIcon;
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 public class Ximage {
 
     //folder gồm : Image hoặc logos
@@ -74,5 +76,15 @@ public class Ximage {
     public static void main(String[] args) {
         System.out.println(getImage("logos", "PHPP"));
     }
-
+public static Image getAppicon(int width, int height){
+   URL url = Ximage.class.getResource("/images/logonho.png");
+        try {
+            BufferedImage originalImage = ImageIO.read(url);
+            Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return scaledImage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
