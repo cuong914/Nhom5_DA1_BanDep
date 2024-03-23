@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import utility.Ximage;
 
 public final class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame() {
         initComponents();
-        setTitle("Phần Mềm Bán Dép ");
+        this.setIconImage(Ximage.getAppicon(10000,3111));
+        setTitle("Phần Mềm Bán Dép AdiNike ");
         //Thiết lập màu nền cho JFrame và đặt độ trong suốt alpha của màu nền.
 //        setLocationRelativeTo(null);
         this.setLocation(15, 5);
