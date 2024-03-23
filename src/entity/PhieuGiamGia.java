@@ -4,8 +4,8 @@ package entity;
 import java.util.Date;
 
 public class PhieuGiamGia {
-    private String ma, ten,hinhThuc;
-    private Date ngayBatDau,ngayKetThuc,ngayTao;
+    private String ma, ten,hinhThuc,ngayBatDau,ngayKetThuc;
+    private Date ngayTao;
     private int soHoaDon;
     private float mucGiamGia;
     private Boolean tt;
@@ -13,7 +13,7 @@ public class PhieuGiamGia {
     public PhieuGiamGia() {
     }
 
-    public PhieuGiamGia(String ma, String ten, String hinhThuc, Date ngayBatDau, Date ngayKetThuc, Date ngayTao, int soHoaDon, float mucGiamGia, Boolean tt) {
+    public PhieuGiamGia(String ma, String ten, String hinhThuc, String ngayBatDau, String ngayKetThuc, Date ngayTao, int soHoaDon, float mucGiamGia, Boolean tt) {
         this.ma = ma;
         this.ten = ten;
         this.hinhThuc = hinhThuc;
@@ -49,19 +49,19 @@ public class PhieuGiamGia {
         this.hinhThuc = hinhThuc;
     }
 
-    public Date getNgayBatDau() {
+    public String getNgayBatDau() {
         return ngayBatDau;
     }
 
-    public void setNgayBatDau(Date ngayBatDau) {
+    public void setNgayBatDau(String ngayBatDau) {
         this.ngayBatDau = ngayBatDau;
     }
 
-    public Date getNgayKetThuc() {
+    public String getNgayKetThuc() {
         return ngayKetThuc;
     }
 
-    public void setNgayKetThuc(Date ngayKetThuc) {
+    public void setNgayKetThuc(String ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
 
@@ -96,6 +96,6 @@ public class PhieuGiamGia {
     public void setTt(Boolean tt) {
         this.tt = tt;
     }
-
     
 }
+  

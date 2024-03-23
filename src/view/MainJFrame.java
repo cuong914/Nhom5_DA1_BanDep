@@ -388,7 +388,7 @@ public final class MainJFrame extends javax.swing.JFrame {
         jpnViewLayout.setVerticalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnViewLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(775, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
