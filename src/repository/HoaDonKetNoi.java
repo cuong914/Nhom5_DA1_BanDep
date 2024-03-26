@@ -22,8 +22,8 @@ public class HoaDonKetNoi {
     DBConnect con;
 
     public ArrayList<HoaDon> getAll() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n" +
-"join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon";
+        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "left join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -49,10 +49,11 @@ public class HoaDonKetNoi {
         }
         return listSanPham;
     }
+
     public ArrayList<HDCT> HDCT(String ma) {
-        String sql = "select HoaDonChiTiet.MaHoaDon,HoaDonChiTiet.MaSP,TenSP,HoaDonChiTiet.SoLuong,SanPham.DonGia,ThanhTien from HoaDonChiTiet\n" +
-"                      join SanPham on SanPham.MaSP = HoaDonChiTiet.MaSP join HoaDon on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon\n" +
-"                     where HoaDonChiTiet.MaHoaDon= '"+ma+"'";
+        String sql = "select HoaDonChiTiet.MaHoaDon,HoaDonChiTiet.MaSP,TenSP,HoaDonChiTiet.SoLuong,SanPham.DonGia,ThanhTien from HoaDonChiTiet\n"
+                + "                      join SanPham on SanPham.MaSP = HoaDonChiTiet.MaSP join HoaDon on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon\n"
+                + "                     where HoaDonChiTiet.MaHoaDon= '" + ma + "'";
         ArrayList<HDCT> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -64,8 +65,8 @@ public class HoaDonKetNoi {
                 Integer makm = rs.getInt("SoLuong");
                 Float gia = rs.getFloat("DonGia");
                 Float tt = rs.getFloat("ThanhTien");
-                
-                HDCT hd = new HDCT(mahd,masp,ten,makm,gia,tt);
+
+                HDCT hd = new HDCT(mahd, masp, ten, makm, gia, tt);
                 listSanPham.add(hd);
             }
 
@@ -74,9 +75,10 @@ public class HoaDonKetNoi {
         }
         return listSanPham;
     }
-      public ArrayList<HoaDon> timda() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n" +
-"join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Thanh%'";
+
+    public ArrayList<HoaDon> timda() {
+        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Thanh%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -101,10 +103,11 @@ public class HoaDonKetNoi {
             e.printStackTrace();
         }
         return listSanPham;
-      }
-       public ArrayList<HoaDon> timdahuy() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n" +
-"join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Huỷ%'";
+    }
+
+    public ArrayList<HoaDon> timdahuy() {
+        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Huỷ%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -129,10 +132,11 @@ public class HoaDonKetNoi {
             e.printStackTrace();
         }
         return listSanPham;
-      }
-        public ArrayList<HoaDon> timchua() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n" +
-"join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Chưa%'";
+    }
+
+    public ArrayList<HoaDon> timchua() {
+        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Chưa%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -157,23 +161,25 @@ public class HoaDonKetNoi {
             e.printStackTrace();
         }
         return listSanPham;
-      }
-         public Boolean dele(String ma){
-    String sql="delete HoaDonChiTiet where MaHoaDon = ?\n" +
-"delete HoaDon where MaHoaDon = ?";
-        try(Connection conn = con.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
-           pst.setObject(1, ma);        
-           pst.setObject(2, ma);        
-           int kq = pst.executeUpdate();
-           return kq>0;
+    }
+
+    public Boolean dele(String ma) {
+        String sql = "delete HoaDonChiTiet where MaHoaDon = ?\n"
+                + "delete HoaDon where MaHoaDon = ?";
+        try (Connection conn = con.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setObject(1, ma);
+            pst.setObject(2, ma);
+            int kq = pst.executeUpdate();
+            return kq > 0;
         } catch (Exception e) {
             e.printStackTrace();;
         }
         return false;
-        }
-          public ArrayList<HoaDon> tim(String ma) {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n" +
-"join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.MaHoaDon = '"+ma+"'";
+    }
+
+    public ArrayList<HoaDon> tim(String ma) {
+        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.MaHoaDon = '" + ma + "'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -198,5 +204,23 @@ public class HoaDonKetNoi {
             e.printStackTrace();
         }
         return listSanPham;
-      }
+    }
+
+    public ArrayList<HoaDon> themHD(HoaDon hd) {
+        ArrayList<HoaDon> lhd = new ArrayList<>();
+        try {
+            String sql = "insert into HoaDon(MaHoaDon, MaNV, NgayTao,TrangThai) values(?,?,getdate(),?)";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, hd.getMahd());
+            ps.setString(2, hd.getManv());
+            ps.setString(3, hd.getTrangThai());
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lhd;
+    }
 }

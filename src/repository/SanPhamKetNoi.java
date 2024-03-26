@@ -133,4 +133,20 @@ public class SanPhamKetNoi {
         }
         return false;
         }
+        
+       public ArrayList<SanPham> truSP(int i , String ma){
+          ArrayList<SanPham> listTru = new ArrayList<>();
+           try {
+               String sql = "update SanPham set SoLuong = SoLuong - ? where MaSP=?";
+               Connection conn = DBConnect.getConnection();
+               PreparedStatement ps = conn.prepareStatement(sql);
+               ps.setInt(1, i);
+               ps.setString(2, ma);
+               ps.executeUpdate();
+               conn.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           return listTru;
+       }
 }

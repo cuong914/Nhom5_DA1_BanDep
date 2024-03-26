@@ -43,4 +43,8 @@ public class QuanlySanPham {
              return "Sua That Bai";
         }
     }
+      public ArrayList<SanPham> truSP(int i,String ma){
+          ArrayList<SanPham> listTru = kn.truSP(i, ma);
+          return listTru;
+      }
 }
