@@ -40,7 +40,7 @@ public final class MainJFrame extends javax.swing.JFrame {
 
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setEvent(listDanhMuc);
-        controller.setView(jpnBanHang, jlbBanHang); //Thiết lập cái đầu đc chọn.
+        controller.setView(jpnVoucher, jlbVoucher); //Thiết lập cái đầu đc chọn.
     }
 
     @SuppressWarnings("unchecked")
