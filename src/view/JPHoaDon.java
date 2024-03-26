@@ -22,32 +22,36 @@ public class JPHoaDon extends javax.swing.JPanel {
      */
     DefaultTableModel defaultTableModel;
     QuanLyHoaDon ql = new QuanLyHoaDon();
+
     public JPHoaDon() {
         initComponents();
         ArrayList<HoaDon> list = ql.getlist();
         load(list);
     }
-void load(ArrayList<HoaDon> list){
-defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
-defaultTableModel.setRowCount(0);
-    for (HoaDon hd : list) {
-        defaultTableModel.addRow(new Object[]{
-        hd.getMahd(),hd.getManv(),hd.getMakh(),hd.getMakm(),hd.getMaTt(),hd.getMasp(),
-            hd.getNgaytao(),hd.getNgaythanhtoan(),hd.getTongtien(),hd.getThanhtien(),hd.getTrangThai()
-        });
-    }
-   
-} 
-void loadHDCT(ArrayList<HDCT> list1){
-defaultTableModel = (DefaultTableModel) tblHDCT.getModel();
-defaultTableModel.setRowCount(0);
-    for (HDCT hdct : list1) {
-        defaultTableModel.addRow(new Object[]{
-        hdct.getMahd(),hdct.getMasp(),hdct.getTensp(),hdct.getSoLuong(),hdct.getDongia(),hdct.getThanhtien()
-        });
+
+    void load(ArrayList<HoaDon> list) {
+        defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
+        defaultTableModel.setRowCount(0);
+        for (HoaDon hd : list) {
+            defaultTableModel.addRow(new Object[]{
+                hd.getMahd(), hd.getManv(), hd.getMakh(), hd.getMakm(), hd.getMaTt(), hd.getMasp(),
+                hd.getNgaytao(), hd.getNgaythanhtoan(), hd.getTongtien(), hd.getThanhtien(), hd.getTrangThai()
+            });
+        }
+
     }
 
-}
+    void loadHDCT(ArrayList<HDCT> list1) {
+        defaultTableModel = (DefaultTableModel) tblHDCT.getModel();
+        defaultTableModel.setRowCount(0);
+        for (HDCT hdct : list1) {
+            defaultTableModel.addRow(new Object[]{
+                hdct.getMahd(), hdct.getMasp(), hdct.getTensp(), hdct.getSoLuong(), hdct.getDongia(), hdct.getThanhtien()
+            });
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,13 +169,12 @@ defaultTableModel.setRowCount(0);
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(522, 522, 522)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(rdDA)
                                 .addGap(38, 38, 38)
                                 .addComponent(rdChua)
@@ -179,24 +182,26 @@ defaultTableModel.setRowCount(0);
                                 .addComponent(rdHUY)
                                 .addGap(43, 43, 43)
                                 .addComponent(rdTat)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnXoa)
-                                .addGap(52, 52, 52)
-                                .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(btnTim)))))
-                .addContainerGap(82, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(330, 330, 330))
+                                .addGap(144, 144, 144)
+                                .addComponent(btnXoa))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(375, 375, 375)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(46, 46, 46)
+                        .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTim))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
+                .addGap(59, 59, 59)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdDA)
                     .addComponent(rdChua)
@@ -207,9 +212,9 @@ defaultTableModel.setRowCount(0);
                     .addComponent(rdTat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(270, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,8 +226,8 @@ defaultTableModel.setRowCount(0);
         // TODO add your handling code here:
         int row = tblHoaDon.getSelectedRow();
         String ma = (String) tblHoaDon.getValueAt(row, 0);
-         ArrayList<HDCT> kq = ql.tim(ma);
-         loadHDCT(kq);
+        ArrayList<HDCT> kq = ql.tim(ma);
+        loadHDCT(kq);
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void rdDAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdDAMouseClicked
@@ -245,32 +250,32 @@ defaultTableModel.setRowCount(0);
 
     private void rdTatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdTatMouseClicked
         // TODO add your handling code here:
-         ArrayList<HoaDon> list = ql.getlist();
+        ArrayList<HoaDon> list = ql.getlist();
         load(list);
     }//GEN-LAST:event_rdTatMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         // TODO add your handling code here:
-     String ma = txtTim.getText();
-int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-if (confirm == JOptionPane.YES_OPTION) {
-    String xoa = ql.xoa(ma);
-    JOptionPane.showMessageDialog(this, xoa);
-    load(ql.getlist());
-}
+        String ma = txtTim.getText();
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String xoa = ql.xoa(ma);
+            JOptionPane.showMessageDialog(this, xoa);
+            load(ql.getlist());
+        }
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimMouseClicked
         // TODO add your handling code here:
-         String ma = txtTim.getText();
-         ArrayList<HoaDon> timhd = ql.timhd(ma);
-         if (timhd.isEmpty()) {
+        String ma = txtTim.getText();
+        ArrayList<HoaDon> timhd = ql.timhd(ma);
+        if (timhd.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không Tồn tại Hoá Đơn");
-            return ;
+            return;
         } else {
-             load(timhd);
+            load(timhd);
         }
-         
+
     }//GEN-LAST:event_btnTimMouseClicked
 
 

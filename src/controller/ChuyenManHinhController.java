@@ -37,7 +37,7 @@ public class ChuyenManHinhController {
         jlbItem.setBackground(new Color(96, 100, 191));
         root.removeAll();
         root.setLayout(new BorderLayout());
-//        root.add(new JPBanHang()); //Thiết lập lại giao diện khởi đầu
+        root.add(new JPBanHang()); //Thiết lập lại giao diện khởi đầu
         root.validate();
         root.repaint();
     }
@@ -71,7 +71,7 @@ public class ChuyenManHinhController {
         public void mouseClicked(MouseEvent e) {
             switch (kind) {
                 case "Bán Hàng":
-                    node = new JPanel();
+                    node = new JPBanHang();
                     break;
                 case "Sản Phẩm":
                     node = new JPSanPham();
