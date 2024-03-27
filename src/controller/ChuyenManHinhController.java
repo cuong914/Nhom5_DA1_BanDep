@@ -66,7 +66,7 @@ public class ChuyenManHinhController {
             this.kind = kind;
             this.jpnItem = jpnItem;
             this.jlbItem = jlbItem;
-            node = new JPVoucher();
+            node = new JPBanHang();
         }
 
         @Override //Chạy sự kiện này khi chuột click vào 1 Jlabel.
