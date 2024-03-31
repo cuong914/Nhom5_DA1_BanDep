@@ -21,7 +21,7 @@ public class KhuyenMaiKetNoi {
                 PhieuGiamGia p = new PhieuGiamGia();
                 p.setHinhThuc(rs.getString(4));
                 p.setMa(rs.getString(1));
-                p.setMucGiamGia(rs.getFloat(5));
+                p.setMucGiamGia(rs.getInt(5));
                 p.setNgayBatDau(rs.getString(6));
                 p.setNgayKetThuc(rs.getString(7));
                 p.setNgayTao(rs.getDate(8));
@@ -47,7 +47,7 @@ public class KhuyenMaiKetNoi {
                 PhieuGiamGia p = new PhieuGiamGia();
                 p.setHinhThuc(rs.getString(4));
                 p.setMa(rs.getString(1));
-                p.setMucGiamGia(rs.getFloat(5));
+                p.setMucGiamGia(rs.getInt(5));
                 p.setNgayBatDau(rs.getString(6));
                 p.setNgayKetThuc(rs.getString(7));
                 p.setNgayTao(rs.getDate(8));
@@ -71,7 +71,7 @@ public class KhuyenMaiKetNoi {
             stm.setString(2, pgg.getTen());
             stm.setInt(3, pgg.getSoHoaDon());
             stm.setString(4, pgg.getHinhThuc());
-            stm.setFloat(5, pgg.getMucGiamGia());
+            stm.setInt(5, pgg.getMucGiamGia());
             stm.setString(6, pgg.getNgayBatDau());
             stm.setString(7, pgg.getNgayKetThuc());
             stm.setBoolean(8, pgg.getTt());
@@ -91,7 +91,7 @@ public class KhuyenMaiKetNoi {
             stm.setString(1, pgg.getTen());
             stm.setInt(2, pgg.getSoHoaDon());
             stm.setString(3, pgg.getHinhThuc());
-            stm.setFloat(4, pgg.getMucGiamGia());
+            stm.setInt(4, pgg.getMucGiamGia());
             stm.setString(5, pgg.getNgayBatDau());
             stm.setString(6, pgg.getNgayKetThuc());
             stm.setBoolean(7, pgg.getTt());
@@ -111,11 +111,25 @@ public class KhuyenMaiKetNoi {
             stm.setString(1, maGG);
             stm.executeUpdate();
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
     public PhieuGiamGia getRow(int row) {
         return listGG.get(row);
+    }
+
+    public void truSoLuongKM(String ma) {
+        try {
+            String sql = "update KhuyenMai set SoHoaDon = SoHoaDon -1 where MaKM=?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ma);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

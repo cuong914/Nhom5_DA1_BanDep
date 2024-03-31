@@ -155,6 +155,9 @@ public class JPSanPham extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCNMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCNMouseEntered(evt);
+            }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -218,21 +221,7 @@ public class JPSanPham extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(18, 18, 18)
-                                .addComponent(cboTT, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAdd)
-                                .addGap(31, 31, 31)
-                                .addComponent(btnCN)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnXoa)
-                                .addGap(434, 434, 434)
-                                .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTim)))))
+                                .addComponent(cboTT, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -427,65 +416,70 @@ public class JPSanPham extends javax.swing.JPanel {
     private void btnCNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCNMouseClicked
         // TODO add your handling code here:
         int confirmResult = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thêm sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-if (confirmResult == JOptionPane.YES_OPTION) {
-    // Đoạn mã để thêm sản phẩm vào cơ sở dữ liệu
-      // TODO add your handling code here:
-        String masp = txtMASP1.getText();
-        String ten = txtTen.getText();
+        if (confirmResult == JOptionPane.YES_OPTION) {
+            // Đoạn mã để thêm sản phẩm vào cơ sở dữ liệu
+            // TODO add your handling code here:
+            String masp = txtMASP1.getText();
+            String ten = txtTen.getText();
 
 // Kiểm tra tên và mã sản phẩm không được trùng
-        for (SanPham sp : ql.getlist()) {
-            if ( ten.equals(sp.getTenSP())) {
-                JOptionPane.showMessageDialog(this, "Tên và Mã sản phẩm không được trùng");
-                return;
-            }
-        }
+//            for (SanPham sp : ql.getlist()) {
+//                if (ten.equals(sp.getTenSP())) {
+//                    JOptionPane.showMessageDialog(this, "Tên và Mã sản phẩm không được trùng");
+//                    return;
+//                }
+//            }
 
-        String math = txtMaTH.getText();
-        String mamau = txtMau.getText();
-        String masize = txtSIZE.getText();
-        String macl = txtCL.getText();
-        String makd = txtKIeu.getText();
-        String xx = txtXX.getText();
-        Integer tt = 0;
-        if (cboTT.equals("Con Hang")) {
-            tt = 1;
-        } else {
-            tt = 0;
-        }
+            String math = txtMaTH.getText();
+            String mamau = txtMau.getText();
+            String masize = txtSIZE.getText();
+            String macl = txtCL.getText();
+            String makd = txtKIeu.getText();
+            String xx = txtXX.getText();
+            
 // Kiểm tra số lượng và giá là số và lớn hơn 0
-        Integer sl;
-        Float gia;
-        if (masp.equals("") || math.equals("") || mamau.equals("") || masize.equals("") || macl.equals("") || makd.equals("") || ten.equals("") || xx.equals("")) {
-            JOptionPane.showMessageDialog(this, "Tất cả các thông tin phải điền đầy đủ");
-            return;
-        }
-        try {
-            sl = Integer.parseInt(txtSL.getText());
-            gia = Float.parseFloat(txtGia.getText());
-            if (sl <= 0 || gia <= 0) {
-                JOptionPane.showMessageDialog(this, "Số lượng và giá phải lớn hơn 0");
+            Integer sl;
+            Float gia;
+            if (masp.equals("") || math.equals("") || mamau.equals("") || masize.equals("") || macl.equals("") || makd.equals("") || ten.equals("") || xx.equals("")) {
+                JOptionPane.showMessageDialog(this, "Tất cả các thông tin phải điền đầy đủ");
                 return;
-
             }
+            if (txtSL.getText().equals("") ||txtGia.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Số lượng và giá không được để trống");
+                return;
+            }
+            try {
+                sl = Integer.parseInt(txtSL.getText());
+                gia = Float.parseFloat(txtGia.getText());
+                if (sl <= 0 || gia <= 0) {
+                    JOptionPane.showMessageDialog(this, "Số lượng và giá phải lớn hơn 0");
+                    return;
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Số lượng và giá phải là số"); 
-            return;
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Số lượng và giá phải là số");
+                return;
+            }
+            Integer tt = 0;
+            if (sl > 0) {
+                tt = 1;
+            } else {
+                tt = 0;
+            }
+            // Trong trường hợp này, bạn có thể đặt mã của bạn ở đây
+            SanPham sp = new SanPham(masp, math, mamau, masize, macl, makd, ten, sl, gia, xx, tt);
+            String up = ql.up(sp);
+            JOptionPane.showMessageDialog(this, up);
+            loadSp(ql.getlist());
+        } else {
+            // Nếu người dùng chọn No hoặc đóng cửa sổ, không thực hiện thêm sản phẩm
         }
-        if (sl.equals("") || gia.equals("")) {
-            JOptionPane.showMessageDialog(this, "Số lượng và giá không được để trống");
-            return;
-        }
-    // Trong trường hợp này, bạn có thể đặt mã của bạn ở đây
-    SanPham sp = new SanPham(masp, math, mamau, masize, macl, makd, ten, sl, gia, xx, tt);
-    String up = ql.up(sp);
-    JOptionPane.showMessageDialog(this, up);
-    loadSp(ql.getlist());
-} else {
-    // Nếu người dùng chọn No hoặc đóng cửa sổ, không thực hiện thêm sản phẩm
-}
     }//GEN-LAST:event_btnCNMouseClicked
+
+    private void btnCNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCNMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCNMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

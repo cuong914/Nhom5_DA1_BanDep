@@ -56,8 +56,8 @@ public class JPVoucher extends javax.swing.JPanel {
         pgg.setTen(txtTenKM.getText());
         pgg.setNgayBatDau(txtNgayApDung.getText());
         pgg.setNgayKetThuc(txtNgayKetThuc.getText());
-        pgg.setSoHoaDon(Integer.valueOf(txtSoLanDung.getText()));
-        pgg.setMucGiamGia(Float.valueOf(txtMucGiamGia.getText()));
+        pgg.setSoHoaDon(Integer.parseInt(txtSoLanDung.getText()));
+        pgg.setMucGiamGia(Integer.parseInt(txtMucGiamGia.getText()));
         if (rdHH.isSelected()) {
             pgg.setTt(Boolean.FALSE);
         } else {
@@ -110,7 +110,7 @@ public class JPVoucher extends javax.swing.JPanel {
             return false;
         }
         try {
-            Double.valueOf(txtMucGiamGia.getText());
+            Integer.parseInt(txtMucGiamGia.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Mức giảm giá phải là số!");
             return false;
@@ -397,7 +397,7 @@ public class JPVoucher extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

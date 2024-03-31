@@ -6,6 +6,7 @@ package repository;
 
 import entity.HDCT;
 import entity.HoaDon;
+import entity.ThanhToan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +20,12 @@ import utility.DBConnect;
  */
 public class HoaDonKetNoi {
 
+    ArrayList<HoaDon> listHoaDon = new ArrayList<>();
     DBConnect con;
 
     public ArrayList<HoaDon> getAll() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
-                + "left join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon";
+        String sql = "  select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + "  left join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -50,6 +52,23 @@ public class HoaDonKetNoi {
         return listSanPham;
     }
 
+    public int getTongSoHD() {
+        String sql = "select count(*) as tongSo from HoaDon";
+        int tongSoHD = 0;
+        try (
+                Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tongSoHD = rs.getInt("tongSo");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongSoHD;
+    }
+
     public ArrayList<HDCT> HDCT(String ma) {
         String sql = "select HoaDonChiTiet.MaHoaDon,HoaDonChiTiet.MaSP,TenSP,HoaDonChiTiet.SoLuong,SanPham.DonGia,ThanhTien from HoaDonChiTiet\n"
                 + "                      join SanPham on SanPham.MaSP = HoaDonChiTiet.MaSP join HoaDon on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon\n"
@@ -64,9 +83,8 @@ public class HoaDonKetNoi {
                 String ten = rs.getString("TenSP");
                 Integer makm = rs.getInt("SoLuong");
                 Float gia = rs.getFloat("DonGia");
-                Float tt = rs.getFloat("ThanhTien");
 
-                HDCT hd = new HDCT(mahd, masp, ten, makm, gia, tt);
+                HDCT hd = new HDCT(mahd, masp, ten, makm, gia);
                 listSanPham.add(hd);
             }
 
@@ -78,7 +96,7 @@ public class HoaDonKetNoi {
 
     public ArrayList<HoaDon> timda() {
         String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
-                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Thanh%'";
+                + "  join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Thanh%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -107,7 +125,7 @@ public class HoaDonKetNoi {
 
     public ArrayList<HoaDon> timdahuy() {
         String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
-                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Đã Huỷ%'";
+                + " join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'%Hủy hóa đơn%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -135,8 +153,8 @@ public class HoaDonKetNoi {
     }
 
     public ArrayList<HoaDon> timchua() {
-        String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
-                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Chưa%'";
+        String sql = " select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
+                + " join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.TrangThai like N'Chờ thanh toán%'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -179,7 +197,7 @@ public class HoaDonKetNoi {
 
     public ArrayList<HoaDon> tim(String ma) {
         String sql = "select HoaDon.MaHoaDon,MaNV,MaKH,MaKM,MaThanhToan,MaSP,HoaDon.NgayTao,NgayThanhToan,TongTien,ThanhTien,HoaDon.TrangThai  from HoaDon\n"
-                + "join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.MaHoaDon = '" + ma + "'";
+                + "  join HoaDonChiTiet on  HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon where HoaDon.MaHoaDon = '" + ma + "'";
         ArrayList<HoaDon> listSanPham = new ArrayList<>();
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
@@ -196,7 +214,7 @@ public class HoaDonKetNoi {
                 Float tong = rs.getFloat("TongTien");
                 Float thanh = rs.getFloat("ThanhTien");
                 String tt = rs.getString("TrangThai");
-                HoaDon sp = new HoaDon(mahd, manv, makh, makm, matt, masp, ngaytao, ngaytt, tong, thanh, tt);
+                HoaDon sp = new HoaDon(mahd, manv, makh, makm, matt, masp, ngaytao, ngaytt, thanh, tong, tt);
                 listSanPham.add(sp);
             }
 
@@ -206,21 +224,102 @@ public class HoaDonKetNoi {
         return listSanPham;
     }
 
-    public ArrayList<HoaDon> themHD(HoaDon hd) {
-        ArrayList<HoaDon> lhd = new ArrayList<>();
+    public void themHD(HoaDon hd, ThanhToan tt) {
+
         try {
-            String sql = "insert into HoaDon(MaHoaDon, MaNV, NgayTao,TrangThai) values(?,?,getdate(),?)";
+            String sql = "insert into ThanhToan(MaThanhToan,NgayTao) values (?,getdate())";
             Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, hd.getMahd());
-            ps.setString(2, hd.getManv());
-            ps.setString(3, hd.getTrangThai());
+            ps.setString(1, tt.getMa());
+
             ps.executeUpdate();
+
+            String sql1 = "insert into HoaDon(MaHoaDon,MaNV,MaThanhToan,NgayTao,TrangThai) values(?,?,?,getdate(),?)";
+
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps1.setString(1, hd.getMahd());
+            ps1.setString(2, hd.getManv());
+            ps1.setString(3, hd.getMaTt());
+            ps1.setString(4, hd.getTrangThai());
+            ps1.executeUpdate();
             conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lhd;
+    }
+
+    public void thanhToan(String ma) {
+        listHoaDon.clear();
+        try {
+            String sql = "update HoaDon set TrangThai=? where MaHoaDon=?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "Đã thanh toán");
+            ps.setString(2, ma);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void huyHoaDon(String ma) {
+        listHoaDon.clear();
+        try {
+            String sql = "update HoaDon set TrangThai=? where MaHoaDon=?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "Hủy hóa đơn");
+            ps.setString(2, ma);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTongTien(String maHD, int tongTien) {
+        try {
+            String sql = "update HoaDon set TongTien = ? where MaHoaDon = ?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tongTien);
+            ps.setString(2, maHD);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void thanhTien(String maHD, int thanhTien) {
+//        try {
+//            String sql = "update HoaDon set ThanhTien = ? where MaHoaDon = ?";
+//            Connection conn = DBConnect.getConnection();
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            ps.setInt(1, thanhTien);
+//            ps.setString(2, maHD);
+//            ps.executeUpdate();
+//            conn.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    public void updateMaKM(String maHD, int thanhTien, String maKH,String maKM) {
+        try {
+            String sql = "update HoaDon set ThanhTien = ?, MaKH=?, MaKM=?, NgayThanhToan = getdate() where MaHoaDon = ?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, thanhTien);
+            ps.setString(2, maKH);
+            ps.setString(3, maKM);
+            ps.setString(4, maHD);
+
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

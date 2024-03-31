@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import repository.HoaDonKetNoi;
 import utility.DBConnect;
 import java.sql.*;
+import entity.ThanhToan;
 
 /**
  *
@@ -22,6 +23,10 @@ public class QuanLyHoaDon {
 
     public ArrayList<HoaDon> getlist() {
         return kn.getAll();
+    }
+
+    public int getTongSoHD() {
+        return kn.getTongSoHD();
     }
 
     public ArrayList<HDCT> tim(String ma) {
@@ -50,8 +55,27 @@ public class QuanLyHoaDon {
         }
     }
 
-    public ArrayList<HoaDon> them(HoaDon hd) {
-        return kn.themHD(hd);
+    public void them(HoaDon hd, ThanhToan tt) {
+        kn.themHD(hd, tt);
+    }
+
+    public void thanhToan(String ma) {
+        kn.thanhToan(ma);
+    }
+
+    public void HuyHD(String ma) {
+        kn.huyHoaDon(ma);
+    }
+
+    public void upateTongTien(String maHD, int tongTien) {
+        kn.updateTongTien(maHD, tongTien);
+    }
+//     public void thanhTien(String maHD, int thanhTien) {
+//        kn.thanhTien(maHD, thanhTien);
+//    }
+
+    public void updateMaKM(String maHD, int thanhTien, String maKH, String maKM) {
+        kn.updateMaKM(maHD, thanhTien, maKH, maKM);
     }
 
     public ArrayList<HoaDon> timhd(String ma) {

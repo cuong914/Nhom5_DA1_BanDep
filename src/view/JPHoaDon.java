@@ -46,7 +46,7 @@ public class JPHoaDon extends javax.swing.JPanel {
         defaultTableModel.setRowCount(0);
         for (HDCT hdct : list1) {
             defaultTableModel.addRow(new Object[]{
-                hdct.getMahd(), hdct.getMasp(), hdct.getTensp(), hdct.getSoLuong(), hdct.getDongia(), hdct.getThanhtien()
+                hdct.getMahd(), hdct.getMasp(), hdct.getTensp(), hdct.getSoLuong(), hdct.getDongia(), hdct.thanhTien()
             });
         }
 

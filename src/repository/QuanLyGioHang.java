@@ -57,4 +57,18 @@ public class QuanLyGioHang {
         }
         return true;
     }
+     public Boolean xoa(String ma) {
+        try {
+            String sql = "delete HoaDonChiTiet where MaSP=?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ma);
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
