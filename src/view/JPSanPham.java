@@ -420,12 +420,7 @@ if (confirmResult == JOptionPane.YES_OPTION) {
         String ten = txtTen.getText();
 
 // Kiểm tra tên và mã sản phẩm không được trùng
-        for (SanPham sp : ql.getlist()) {
-            if ( ten.equals(sp.getTenSP())) {
-                JOptionPane.showMessageDialog(this, "Tên và Mã sản phẩm không được trùng");
-                return;
-            }
-        }
+       
 
         String math = txtMaTH.getText();
         String mamau = txtMau.getText();
