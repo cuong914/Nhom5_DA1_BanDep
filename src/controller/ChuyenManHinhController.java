@@ -60,11 +60,13 @@ public class ChuyenManHinhController {
         private String kind; //Tên của Jpanel chọn.
         private JPanel jpnItem;
         private JLabel jlbItem;
+     
 
         public LabelEvent(String kind, JPanel jpnItem, JLabel jlbItem) {
             this.kind = kind;
             this.jpnItem = jpnItem;
             this.jlbItem = jlbItem;
+            node = new JPBanHang();
         }
 
         @Override //Chạy sự kiện này khi chuột click vào 1 Jlabel.

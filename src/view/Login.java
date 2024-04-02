@@ -5,15 +5,20 @@
 package view;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import model.GetChucVu;
+import model.Login_Model;
+import responsetory.Repo_Login;
 
 /**
  *
  * @author cuong
  */
 public class Login extends javax.swing.JPanel {
-
+  private static Repo_Login lgrp = new Repo_Login();
     /**
-     * Creates new form Login
+     * Creates new form Login_Model
      */
     public Login() {
         initComponents();
@@ -24,6 +29,15 @@ public class Login extends javax.swing.JPanel {
 
     public void addEventRegister(ActionListener event) {
         cmdRegister.addActionListener(event);
+    }
+     public String returnChucVu() { //dựa vào id_chức vụ mà alter 
+        Login_Model lg = lgrp.getDangnhap(txtUser.getText(), txtPass.getText());
+        if (lg.getChucVu() == true) {
+            return "Quản lí";
+        } else if (lg.getChucVu() == false) {
+            return "Nhân viên";
+        }
+        return null;
     }
 
     /**
@@ -123,11 +137,57 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+ if (evt.getKeyCode() == 10) {
+            if (txtUser.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nhập vào tài khoản!");
+                return;
+            }
+            if (txtPass.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nhập vào mật khẩu!");
+                return;
+            }
+            Login_Model lg = lgrp.getDangnhap(txtUser.getText(), txtPass.getText());
+            if (lg == null) {
+                JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại! Vui lòng xem lại thông tin!");
+                txtUser.setText("");
+                txtPass.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công với tư cách: " + returnChucVu());
+                GetChucVu.setChucvu(lg.getChucVu()); //Thông qua đối tượng đăng nhập vào lấy chức vụ của nó.
+                MainJFrame mjfarme = new MainJFrame();
+                mjfarme.setVisible(true);
 
+            }
+        }
     }//GEN-LAST:event_txtPassKeyPressed
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+ if (txtUser.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nhập vào tài khoản!");
+            return;
+        }
+        if (txtPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nhập vào mật khẩu!");
+            return;
+        }
+        Login_Model lg = lgrp.getDangnhap(txtUser.getText(), txtPass.getText());
+        if (lg == null) {//chek xem dựa vào TK + MK : có lấy ra đối tượng nào ko.
+            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại! Vui lòng xem lại thông tin!");
+            txtUser.setText("");
+            txtPass.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Đăng nhập thành công với tư cách: " + returnChucVu());
+            GetChucVu.setChucvu(lg.getChucVu());
+            GetChucVu.setTentk(lg.getMaTK());
+            GetChucVu.setMatkhau(lg.getMatKhau());
+            GetChucVu.setChucvu(lg.getChucVu());
 
+            MainJFrame mjfarme = new MainJFrame();
+            mjfarme.setVisible(true);
+            // Đóng JFrame hoặc JPanel hiện tại
+            SwingUtilities.getWindowAncestor(this).dispose();
+
+        }
     }//GEN-LAST:event_myButton1ActionPerformed
 
     

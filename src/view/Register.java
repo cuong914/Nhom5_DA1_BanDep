@@ -8,6 +8,18 @@ package view;
 
 
 import java.awt.event.ActionListener;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.util.Date;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+import model.Forgot_MK;
+import responsetory.Repo_Forgot;
 
 
 
@@ -16,7 +28,7 @@ import java.awt.event.ActionListener;
  * @author RAVEN
  */
 public class Register extends javax.swing.JPanel {
-
+    Repo_Forgot FogotRepo = new Repo_Forgot();
  
 
     /**
@@ -29,7 +41,26 @@ public class Register extends javax.swing.JPanel {
     public void register() {
         txtUser.grabFocus();
     }
-
+    Forgot_MK readform() {
+        Forgot_MK fg = new Forgot_MK();
+        String ma = txtUser.getText();
+        String mk = txtPass1.getText();
+        return new Forgot_MK(ma, mk);
+    }
+     public boolean checkEmail() {
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        String mail = txtmail.getText();
+        if (mail.matches(EMAIL_REGEX) == false) {
+            JOptionPane.showMessageDialog(this, "Email sai định dạng!");
+            return false;
+        }
+        if (mail.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn cần nhập vào Email!");
+            return false;
+        } return true;
+     }
+       String code;
+    String to;
     public void addEventBackLogin(ActionListener event) {
         cmdBackLogin.addActionListener(event);
     
@@ -68,6 +99,8 @@ public class Register extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(69, 68, 68));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Forgot Passworld");
+        jLabel2.setToolTipText("");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jLabel3.setText("Password");
 
@@ -141,7 +174,66 @@ public class Register extends javax.swing.JPanel {
 
     
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+           Forgot_MK fg = readform();
 
+        if (!checkEmail()) {
+            return;
+        } else {
+
+            if (!FogotRepo.getuser(fg)) {
+                JOptionPane.showMessageDialog(this, "Mã nhân viên không tồn tại!");
+            } else {
+                if (txtPass.getText().equals(txtPass1.getText())) {
+                    if (FogotRepo.updatepass(fg) > 0) {
+                        JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
+                        final String from = "manhcuong20054@gmail.com";
+                        final String pass = "vrgpkogcovwokifq";
+                        final String to = txtmail.getText();
+                        //Properties: khai báo các thuộc tính
+                        Properties prop = new Properties();
+                        prop.put("mail.smtp.host", "smtp.gmail.com");//SMTP HOST
+                        prop.put("mail.smtp.port", "587");//TLS=587,SSL=465
+                        prop.put("mail.smtp.auth", "true");
+                        prop.put("mail.smtp.starttls.enable", "true");
+                        //gửi mail
+
+                        Authenticator auth;
+                        auth = new Authenticator() {
+                            @Override
+                            protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication(from, pass);
+                            }
+
+                        };
+                        // phiên làm  việc
+                        Session session = Session.getInstance(prop, auth);
+                        MimeMessage msg = new MimeMessage(session);
+                        try {
+                            msg.addHeader("Content-type", "text; charset=UTF-8");
+                            //người gửi
+                            msg.setFrom(from);
+                            //người nhận
+                            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+                            //tiêu đề 
+                            msg.setSubject("Gửi mật khẩu");
+                            //quy định ngày gửi
+                            msg.setSentDate(new Date());
+                            //quy định email nhận phản hồi
+                            //   msg.setReplyTo(null);
+                            //nội dung
+                            msg.setText("Mật khẩu được đặt lại là: " + txtPass1.getText(), "UTF-8");
+
+                            Transport.send(msg);
+
+                        } catch (Exception e) {
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "nhân viên không tồn tại Conform pass world không khớp!");
+                }
+            }
+
+        }
     }//GEN-LAST:event_myButton1ActionPerformed
 
 
