@@ -7,6 +7,7 @@ package model;
 import com.sun.jdi.connect.spi.Connection;
 import entity.HDCT;
 import entity.HoaDon;
+import entity.InHoaDon;
 import java.util.ArrayList;
 import repository.HoaDonKetNoi;
 import utility.DBConnect;
@@ -81,6 +82,10 @@ public class QuanLyHoaDon {
     public ArrayList<HoaDon> timhd(String ma) {
         ArrayList<HoaDon> kq = kn.tim(ma);
         return kq;
+    }
+
+    public InHoaDon getHoaDonInfo(String ma) {
+        return kn.getHoaDonInfo(ma);
     }
 
 }

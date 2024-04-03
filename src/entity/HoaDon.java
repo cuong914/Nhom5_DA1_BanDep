@@ -12,9 +12,10 @@ import java.util.Date;
  * @author Admin
  */
 public class HoaDon {
-    private String mahd,manv,makh,makm,maTt,masp;
-    private Date ngaytao,ngaythanhtoan;
-    private float tongtien,thanhtien;
+
+    private String mahd, manv, makh, makm, maTt, masp;
+    private Date ngaytao, ngaythanhtoan;
+    private float tongtien, thanhtien;
     private String trangThai;
 
     public HoaDon() {
@@ -139,4 +140,13 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
+    public String inHoaDon() {
+        return getMahd() + ": " + getManv() + ":" + getMakh()
+                + ":" + getMakm()
+                + ":" + getMaTt()
+                + ":" + getMasp() + 
+                ":" + getNgaytao() + ":"
+                + getNgaythanhtoan() + ":" + getTongtien() + ":"
+                + getThanhtien() + ":" + getTrangThai();
+    }
 }

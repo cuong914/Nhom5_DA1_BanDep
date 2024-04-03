@@ -6,6 +6,7 @@ package repository;
 
 import entity.HDCT;
 import entity.HoaDon;
+import entity.InHoaDon;
 import entity.ThanhToan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -327,5 +328,51 @@ public class HoaDonKetNoi {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public InHoaDon getHoaDonInfo(String ma) {
+        InHoaDon hoaDonInfo = new InHoaDon();
+        String sql = "select HoaDon.MaHoaDon as maHD,\n"
+                + "     HoaDon.MaNV as maNV,\n"
+                + "     NhanVien.HoTen as tenNV,\n"
+                + "     KhachHang.MaKH as maKH,\n"
+                + "     KhachHang.HoTen as tenKH,\n"
+                + "     KhachHang.SDT as sdt,\n"
+                + "     KhachHang.DiaChi as diaChi,\n"
+                + "     HoaDon.MaThanhToan as maTT,\n"
+                + "     HoaDon.NgayThanhToan as ngayThanhToan,\n"
+                + "     HoaDon.TongTien as tongTien,\n"
+                + "     KhuyenMai.MucGiamGia as mucGiam,\n"
+                + "     HoaDon.ThanhTien as thanhTien\n"
+                + " from HoaDon\n"
+                + " inner join NhanVien on HoaDon.MaNV = NhanVien.MaNV\n"
+                + " inner join KhachHang on KhachHang.MaKH = HoaDon.MaKH\n"
+                + " inner join KhuyenMai on HoaDon.MaKM = KhuyenMai.MaKM\n"
+                + " where HoaDon.MaHoaDon=?";
+        try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, ma);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String maHD = rs.getString("maHD");
+                String maNV = rs.getString("maNV");
+                String tenNV = rs.getString("tenNV");
+                String maKH = rs.getString("maKH");
+                String tenKH = rs.getString("tenKH");
+                String sdt = rs.getString("sdt");
+                String diaChi = rs.getString("diaChi");
+                String maTT = rs.getString("maTT");
+                String ngayThanhToan = rs.getDate("ngayThanhToan").toString();
+                Integer tongTien = rs.getInt("tongTien");
+                Integer mucGiam = rs.getInt("mucGiam");
+                Integer thanhTien = rs.getInt("thanhTien");
+                hoaDonInfo = new InHoaDon(maHD, maNV, tenNV, maKH,
+                        tenKH, sdt, diaChi, maTT, ngayThanhToan, tongTien,
+                        thanhTien, mucGiam);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        hoaDonInfo.setDanhSachSanPham(HDCT(ma));
+        return hoaDonInfo;
     }
 }

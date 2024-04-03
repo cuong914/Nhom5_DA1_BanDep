@@ -5,7 +5,9 @@
 package view;
 
 import entity.GioHang;
+import entity.HDCT;
 import entity.HoaDon;
+import entity.InHoaDon;
 import entity.SanPham;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -26,6 +28,10 @@ import view.JPKhachHang;
 import entity.ThanhToan;
 import repository.KhuyenMaiKetNoi;
 import entity.PhieuGiamGia;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.List;
 
 /**
@@ -749,9 +755,18 @@ public class JPBanHang extends javax.swing.JPanel {
             if (Integer.parseInt(tienKhach) >= Integer.parseInt(tt)) {
                 qlhd.updateMaKM(txtMaHD.getText(), Integer.parseInt(tt), maKH, maKM);
                 qlhd.thanhToan(txtMaHD.getText());
-                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-                loadHoaDon();
-                clearGioHang();
+                int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn muốn in hóa đơn không", "", JOptionPane.YES_NO_OPTION);
+                if (xacNhan == JOptionPane.YES_OPTION) {
+                    inHoaDon(txtMaHD.getText());
+                    JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                    loadHoaDon();
+                    clearGioHang();
+                } else if (xacNhan == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                    loadHoaDon();
+                    clearGioHang();
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
@@ -759,7 +774,51 @@ public class JPBanHang extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btThanhToanMouseClicked
+    public void inHoaDon(String maHoaDon) {
 
+//        File file = new File("hien1.txt");
+//        if (!file.exists()) {
+//            file.createNewFile();
+//        }
+//        FileOutputStream fos = new FileOutputStream(file);
+//        ObjectOutputStream oos = new ObjectOutputStream(fos);
+//
+//        ArrayList<DienThoai> listGhi = quanLyDienThoai.getList();
+//        for (DienThoai dt : listGhi) {
+//            oos.writeObject(dt.getMa() + ": " + dt.getHang());
+//        }
+//        fos.close();
+//        oos.close();
+        InHoaDon hoaDonInfo = qlhd.getHoaDonInfo(maHoaDon);
+        try (FileWriter fw = new FileWriter("Hoa_Don_" + maHoaDon + ".txt")) {
+            fw.write(hoaDonInfo.getMaHD() + "\n"
+                    + "Ten khach hang: " + hoaDonInfo.getTenKH() + "\n"
+                    + "So dien thoai: " + hoaDonInfo.getSdt() + "\n"
+                    + "Dia chi: " + hoaDonInfo.getDiaChi() + "\n"
+                    + "Ten nhan vien: " + hoaDonInfo.getTenNV() + "\n"
+                    + "Ngay thanh toan: " + hoaDonInfo.getNgayThanhToan() + "\n");
+            fw.write("Danh sach san pham\n");
+            fw.write(" Ma sp |     Ten san pham     | So luong |  Don gia  | Tong tien \n");
+            fw.write("----------------------------------------------\n");
+            for (HDCT hdct : hoaDonInfo.getDanhSachSanPham()) {
+                String tenSP = hdct.getTensp().length() > 20
+                        ? hdct.getTensp().substring(0, 17).concat("...")
+                        : hdct.getTensp();
+                fw.write(" " + hdct.getMasp()
+                        + " | " + String.format("%20s", tenSP)
+                        + " | " + String.format("%8d", hdct.getSoLuong())
+                        + " | " + String.format("%9d", (int) hdct.getDongia())
+                        + " | " + String.format("%9d", (int) hdct.getDongia() * hdct.getSoLuong())
+                        + "\n");
+            }
+            fw.write("----------------------------------------------\n");
+            fw.write("Tong tien: " + hoaDonInfo.getTongTien() + "\n");
+            fw.write("Muc giam: " + hoaDonInfo.getMucGiam() + "\n");
+            fw.write("Thanh tien: " + hoaDonInfo.getThanhTien() + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btHuyHoaDon;
