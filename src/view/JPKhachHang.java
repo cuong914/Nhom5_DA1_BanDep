@@ -95,6 +95,7 @@ public class JPKhachHang extends javax.swing.JPanel {
         return new KhachHang(ma, ten, sdt, diachi, trangthai);
 
     }
+
     public KhachHang getKhachHang1() throws ParseException {
         if (txtmakh.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "không được để trống mã khach hàng");
@@ -135,7 +136,8 @@ public class JPKhachHang extends javax.swing.JPanel {
         return new KhachHang(ma, ten, sdt, diachi, trangthai);
 
     }
-     public void filltoform(int index) {
+
+    public void filltoform(int index) {
         KhachHang kh = listKH.get(index);
         txtmakh.setText(kh.getMakh());
         txthoten.setText(kh.getHoten());
@@ -147,7 +149,7 @@ public class JPKhachHang extends javax.swing.JPanel {
 //    rbtnghi.setText("Đã nghỉ ");
 //}
 //        
-        if (kh.getTrangthai()== false) {
+        if (kh.getTrangthai() == false) {
             rbtm.setSelected(true);
         } else {
             rbth.setSelected(true);
@@ -158,7 +160,6 @@ public class JPKhachHang extends javax.swing.JPanel {
 //        txtngaysinh.setText(ngaySinhString);
 //        txtvaitro.setText(nv.getVaitro());
     }
-      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -241,6 +242,11 @@ public class JPKhachHang extends javax.swing.JPanel {
         rbth.setText("H");
 
         jButton1.setText("Kiểm tra");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -400,7 +406,7 @@ public class JPKhachHang extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         int choice = JOptionPane.showConfirmDialog(this, "Bạn có xóa khach hàng  không?", "Xác nhận yêu cầu", JOptionPane.YES_NO_CANCEL_OPTION);
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có xóa khach hàng  không?", "Xác nhận yêu cầu", JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             int vt = -1;
             vt = tblkhachhang.getSelectedRow();
@@ -408,11 +414,11 @@ public class JPKhachHang extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Bạn phải chọn khách hàng muốn xóa");
                 return;
             } else {
-              
+
                 String manv = txtmakh.getText();
-              
+
                 JOptionPane.showMessageDialog(this, rp.XoaKhachHang(manv));
-               // JOptionPane.showMessageDialog(this, "xóa thành công ");
+                // JOptionPane.showMessageDialog(this, "xóa thành công ");
 //                listKH =  serviceKH.getAllKhachHang();
                 filltable(listKH);
             }
@@ -422,7 +428,7 @@ public class JPKhachHang extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật khách hàng không?", "Xác nhận yêu cầu", JOptionPane.YES_NO_CANCEL_OPTION);
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật khách hàng không?", "Xác nhận yêu cầu", JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             int vt = -1;
             vt = tblkhachhang.getSelectedRow();
@@ -441,7 +447,7 @@ public class JPKhachHang extends javax.swing.JPanel {
                         filltable(listKH);
                     }
                 } catch (ParseException ex) {
-                    
+
                 }
             }
         }
@@ -474,19 +480,19 @@ public class JPKhachHang extends javax.swing.JPanel {
 
     private void tblkhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhachhangMouseClicked
         // TODO add your handling code here:
-             int vt = tblkhachhang.getSelectedRow();
-            filltoform(vt);
-            
+        int vt = tblkhachhang.getSelectedRow();
+        filltoform(vt);
+
     }//GEN-LAST:event_tblkhachhangMouseClicked
 
     private void txttimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txttimkiemActionPerformed
 
     private void txttimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkiemKeyReleased
         // TODO add your handling code here:
-         int a = cbchuyende.getSelectedIndex();
+        int a = cbchuyende.getSelectedIndex();
         String timKiem = txttimkiem.getText();
         if (a == 0) {
             listKH = serviceKH.getAllNhanVienTKTheoManv(timKiem);
@@ -498,12 +504,12 @@ public class JPKhachHang extends javax.swing.JPanel {
             listKH = serviceKH.getAllNhanVienTKTheoSDT(timKiem);
             filltable(listKH);
         }
-        
+
     }//GEN-LAST:event_txttimkiemKeyReleased
 
     private void cbchuyendeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbchuyendeActionPerformed
         // TODO add your handling code here:
-         int a = cbchuyende.getSelectedIndex();
+        int a = cbchuyende.getSelectedIndex();
         String timKiem = txttimkiem.getText();
         if (a == 0) {
             listKH = serviceKH.getAllNhanVienTKTheoManv(timKiem);
@@ -516,6 +522,20 @@ public class JPKhachHang extends javax.swing.JPanel {
             filltable(listKH);
         }
     }//GEN-LAST:event_cbchuyendeActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        String sdt = txtsdt.getText();
+        for (KhachHang kh : serviceKH.getAllKhachHang()) {
+            if (txtsdt.getText().equals(kh.getSdt())) {
+                txtmakh.setText(kh.getMakh());
+                txthoten.setText(kh.getHoten());
+                txtdiachi.setText(kh.getDiachi());
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Khách hàng chưa tồn tại");
+    }//GEN-LAST:event_jButton1MouseClicked
 
     public static void main(String[] args) {
         JFrame jf = new JFrame();

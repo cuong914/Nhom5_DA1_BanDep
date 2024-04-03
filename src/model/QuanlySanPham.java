@@ -50,25 +50,23 @@ public class QuanlySanPham {
         }
     }
 
-    public ArrayList<SanPham> truSP(int i, String ma) {
-        ArrayList<SanPham> listTru = kn.truSP(i, ma);
-        return listTru;
+    public void updateSoLuong(int soLuongConLai, String ma) {
+        kn.updateSoLuong(soLuongConLai, ma);
+
     }
 
-    public ArrayList<SanPham> nhanDoiTrongMa(int i, String ma) {
-        ArrayList<SanPham> listNhanDoi = kn.nhanDoiTrongMa(i, ma);
-        return listNhanDoi;
+    public void nhanDoiTrongMa(int soLuong, String ma) {
+        kn.nhanDoiTrongMa(soLuong, ma);
+
     }
 
-    public ArrayList<SanPham> congSP(int i, String ma) {
-        ArrayList<SanPham> listCong = kn.CongSP(i, ma);
-        return listCong;
+    public void congSP(int soLuong, String ma) {
+        kn.CongSP(soLuong, ma);
+
     }
-    public ArrayList<SanPham> truSPtrongMa(int i, String ma) {
-        ArrayList<SanPham> listTruSP = kn.truSPTrongMa(i, ma);
-        return listTruSP;
-    }
-    public void khiHetHang(int i , String ma,int soLuong){
-        kn.khiSoLuongHet(i, ma,soLuong);
+
+    public void truSPtrongMa(int soLuong, String ma) {
+        kn.truSPTrongMa(soLuong, ma);
+
     }
 }

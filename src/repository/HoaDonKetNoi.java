@@ -306,13 +306,19 @@ public class HoaDonKetNoi {
 //            e.printStackTrace();
 //        }
 //    }
-    public void updateMaKM(String maHD, int thanhTien, String maKH,String maKM) {
+    public void updateMaKM(String maHD, int thanhTien, String maKH, String maKM) {
         try {
             String sql = "update HoaDon set ThanhTien = ?, MaKH=?, MaKM=?, NgayThanhToan = getdate() where MaHoaDon = ?";
             Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, thanhTien);
+            if ("".equals(maKH)) {
+                maKH = null;
+            }
             ps.setString(2, maKH);
+            if ("".equals(maKM)) {
+                maKM = null;
+            }
             ps.setString(3, maKM);
             ps.setString(4, maHD);
 

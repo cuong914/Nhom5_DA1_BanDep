@@ -5,11 +5,11 @@
  */
 package view;
 
-
-
 import java.awt.event.ActionListener;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+//import java.net.Authenticator;
+//import java.net.PasswordAuthentication;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -21,15 +21,13 @@ import javax.swing.JOptionPane;
 import model.Forgot_MK;
 import responsetory.Repo_Forgot;
 
-
-
 /**
  *
  * @author RAVEN
  */
 public class Register extends javax.swing.JPanel {
+
     Repo_Forgot FogotRepo = new Repo_Forgot();
- 
 
     /**
      * Creates new form Login
@@ -41,13 +39,15 @@ public class Register extends javax.swing.JPanel {
     public void register() {
         txtUser.grabFocus();
     }
+
     Forgot_MK readform() {
         Forgot_MK fg = new Forgot_MK();
         String ma = txtUser.getText();
         String mk = txtPass1.getText();
         return new Forgot_MK(ma, mk);
     }
-     public boolean checkEmail() {
+
+    public boolean checkEmail() {
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         String mail = txtmail.getText();
         if (mail.matches(EMAIL_REGEX) == false) {
@@ -57,17 +57,15 @@ public class Register extends javax.swing.JPanel {
         if (mail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn cần nhập vào Email!");
             return false;
-        } return true;
-     }
-       String code;
+        }
+        return true;
+    }
+    String code;
     String to;
+
     public void addEventBackLogin(ActionListener event) {
         cmdBackLogin.addActionListener(event);
-    
 
-   
-
-    
     }
 
     /**
@@ -172,9 +170,9 @@ public class Register extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-           Forgot_MK fg = readform();
+        Forgot_MK fg = readform();
 
         if (!checkEmail()) {
             return;

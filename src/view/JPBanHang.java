@@ -51,7 +51,7 @@ public class JPBanHang extends javax.swing.JPanel {
         load();
         loadHoaDon();
         loadGioHang();
-        
+
     }
 
     void loadGioHang() {
@@ -67,13 +67,12 @@ public class JPBanHang extends javax.swing.JPanel {
 
         }
     }
-    
+
     void clearGioHang() {
         defau = (DefaultTableModel) tblGioHang.getModel();
         defau.setRowCount(0);
-        
-    }
 
+    }
 
     void loadHoaDon() {
         defau = (DefaultTableModel) tblHoaDon.getModel();
@@ -554,7 +553,7 @@ public class JPBanHang extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Số lượng không được điền chữ");
 //            return;
 //        }
-        ql.truSP(Integer.parseInt(a), ma);
+        ql.updateSoLuong(sl - Integer.parseInt(a), ma);
         load();
 
         String ten = (String) tblSanPham.getValueAt(i, 6);
@@ -577,8 +576,6 @@ public class JPBanHang extends javax.swing.JPanel {
         }
         qlhd.upateTongTien(magh, tong);
         txtThanhTien.setText(tong + "");
-        ql.khiHetHang(i, ma, sl);
-        load();
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void btTimkiemSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTimkiemSPMouseClicked
@@ -599,13 +596,10 @@ public class JPBanHang extends javax.swing.JPanel {
             if (txtSoDT.getText().equals(kh.getSdt())) {
                 txtMaKhachHang.setText(kh.getMakh());
                 txtTenKhachHang.setText(kh.getHoten());
-
-                break;
-            } else {
-                JOptionPane.showMessageDialog(this, "Khách hàng chưa tồn tại");
                 return;
             }
         }
+        JOptionPane.showMessageDialog(this, "Khách hàng chưa tồn tại");
     }//GEN-LAST:event_btKiemTraSDTMouseClicked
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
@@ -620,7 +614,6 @@ public class JPBanHang extends javax.swing.JPanel {
         String ngay = (String) tblHoaDon.getValueAt(i, 4);
         txtNgayTao.setText(ngay);
 
-        ArrayList<GioHang> list = new ArrayList<>();
         String maHD = txtMaHD.getText();
         loadGioHang();
         int tong = 0;
@@ -670,6 +663,7 @@ public class JPBanHang extends javax.swing.JPanel {
         for (GioHang gioHang : qlgh.getGioHang(txtMaHD.getText())) {
             tong += gioHang.thanhTien();
         }
+        txtThanhTien.setText(tong + "");
         loadGioHang();
     }//GEN-LAST:event_btXoaGioHangMouseClicked
 

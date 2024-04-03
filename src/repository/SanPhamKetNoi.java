@@ -135,85 +135,89 @@ public class SanPhamKetNoi {
         return false;
     }
 
-    public ArrayList<SanPham> truSP(int i, String ma) {
-        ArrayList<SanPham> listTru = new ArrayList<>();
+    public void updateSoLuong(int soLuongConLai, String ma) {
+
         try {
-            String sql = "update SanPham set SoLuong = SoLuong - ? where MaSP=?";
+            int trangThai = soLuongConLai > 0 ? 1 : 0;
+            String sql = "update SanPham set SoLuong = ?, TrangThai = ? where MaSP = ?";
             Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, i);
-            ps.setString(2, ma);
+            ps.setInt(1, soLuongConLai);
+            ps.setInt(2, trangThai);
+            ps.setString(3, ma);
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listTru;
+
     }
 
-    public ArrayList<SanPham> nhanDoiTrongMa(int i, String ma) {
-        ArrayList<SanPham> listNhanDoi = new ArrayList<>();
+    public void nhanDoiTrongMa(int soLuong, String ma) {
         try {
-            String sql = "update HoaDonChiTiet set SoLuong = SoLuong + ? where MaSP=?";
+            int trangThai = soLuong > 0 ? 1 : 0;
+            String sql = "update HoaDonChiTiet set SoLuong = SoLuong + ?, TrangThai=? where MaSP=?";
             Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, i);
-            ps.setString(2, ma);
+            ps.setInt(1, soLuong);
+            ps.setInt(2, trangThai);
+            ps.setString(3, ma);
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listNhanDoi;
     }
 
-    public ArrayList<SanPham> CongSP(int i, String ma) {
-        ArrayList<SanPham> listCong = new ArrayList<>();
+    public void CongSP(int soLuongThayDoi, String ma) {
         try {
-            String sql = "update SanPham set SoLuong = SoLuong + ? where MaSP=?";
             Connection conn = DBConnect.getConnection();
+            int soLuongMoi = getSoLuongHienTai(ma) + soLuongThayDoi;
+            String sql = "update SanPham set SoLuong = ?, TrangThai=? where MaSP=?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, i);
-            ps.setString(2, ma);
+            int trangThai = soLuongMoi > 0 ? 1 : 0;
+            ps.setInt(1, soLuongMoi);
+            ps.setInt(2, trangThai);
+            ps.setString(3, ma);
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listCong;
     }
-
-    public ArrayList<SanPham> truSPTrongMa(int i, String ma) {
-        ArrayList<SanPham> listTruSP = new ArrayList<>();
+    
+    public int getSoLuongHienTai(String ma) {
+        String sqlLaySoLuongHienTai = "select SoLuong from SanPham where MaSP=?";
+        int soLuongHienTai = 0;
         try {
-            String sql = "update HoaDonChiTiet set SoLuong = ? where MaSP=?";
-            Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, i);
-            ps.setString(2, ma);
-            ps.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listTruSP;
-    }
-
-    public void khiSoLuongHet(int i, String ma,int soLuong) {
-       
-            if ( soLuong == 0) {
-                try {
-                    String sql = "update SanPham set TrangThai = 'Hết Hàng' where MaSP=? ";
-                    Connection conn = DBConnect.getConnection();
-                    PreparedStatement ps = conn.prepareStatement(sql);
-                    ps.setInt(1, i);
-                    ps.setString(2, ma);
-                    ps.executeUpdate();
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            Connection conn = con.getConnection();
+            PreparedStatement psLaySoLuong = conn.prepareStatement(sqlLaySoLuongHienTai);
+            psLaySoLuong.setString(1, ma);
+            ResultSet rs = psLaySoLuong.executeQuery();
+            while (rs.next()) {
+                soLuongHienTai = rs.getInt("SoLuong");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return soLuongHienTai;
     }
 
+    public void truSPTrongMa(int soLuong, String ma) {
+
+        try {
+            int trangThai = soLuong > 0 ? 0 : 1;
+            String sql = "update HoaDonChiTiet set SoLuong = ?,TrangThai=? where MaSP=?";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuong);
+            ps.setInt(2, trangThai);
+            ps.setString(3, ma);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}

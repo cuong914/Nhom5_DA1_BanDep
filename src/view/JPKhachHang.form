@@ -244,6 +244,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ki&#x1ec3;m tra"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
