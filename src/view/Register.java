@@ -5,14 +5,53 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+<<<<<<< HEAD
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
+=======
+<<<<<<< HEAD
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
+=======
+>>>>>>> a82c40c1ff872650d59a3adb0c1fa8999bc15688
+>>>>>>> 9054fabf5863c3546be4a129c14ec34511b11ecd
+import java.util.Date;
+import java.util.Properties;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import java.awt.event.ActionListener;
 //import java.net.Authenticator;
 //import java.net.PasswordAuthentication;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Authenticator;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -20,6 +59,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import model.Forgot_MK;
 import responsetory.Repo_Forgot;
+
 
 /**
  *
@@ -40,33 +80,107 @@ public class Register extends javax.swing.JPanel {
         txtUser.grabFocus();
     }
 
-    Forgot_MK readform() {
-        Forgot_MK fg = new Forgot_MK();
-        String ma = txtUser.getText();
-        String mk = txtPass1.getText();
-        return new Forgot_MK(ma, mk);
-    }
-
-    public boolean checkEmail() {
-        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        String mail = txtmail.getText();
-        if (mail.matches(EMAIL_REGEX) == false) {
-            JOptionPane.showMessageDialog(this, "Email sai định dạng!");
-            return false;
-        }
-        if (mail.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bạn cần nhập vào Email!");
-            return false;
-        }
-        return true;
-    }
-    String code;
-    String to;
-
     public void addEventBackLogin(ActionListener event) {
         cmdBackLogin.addActionListener(event);
+    
 
+   
+
+    
     }
+        private String codeMKM = "";
+
+    private void Gui_Email() {
+//        final String username = "ngotrungkien13031977@gmail.com";
+//        final String password = "dfgsdfhgsad";
+         final String username = "manhcuong20054@gmail.com";
+        final String password = "achp bres ntlc azxv";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+
+        for (int i = 0; i < 6; i++) {
+            double randomDouble = Math.random();
+            randomDouble = randomDouble * 9 + 1;
+            int randomInt = (int) randomDouble;
+            this.codeMKM += randomInt;
+        }
+        final String textMKM = "Đây là mã OTP của bạn: " + this.codeMKM + "\nVui lòng không chia sẻ mã này cho bất kì ai!";
+
+        //Đăng nhập email
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(txtmail.getText())
+            );
+            message.setSubject("Cửa Hàng Dép Bee: Mã OTP!");
+            message.setText(textMKM);
+
+            Transport.send(message);
+            JOptionPane.showMessageDialog(this, "Email đã được gửi thành công!");
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.schedule(() -> {
+                // Xử lý sau khi thời gian hiệu lực hết hạn
+                System.out.println("Mã OTP đã hết hạn sau 120s.");
+                JOptionPane.showMessageDialog(this, "Mã OTP đã hết hạn");
+                // Có thể thực hiện các hành động khác ở đây
+                this.codeMKM="";
+                // Đóng scheduler sau khi hoàn thành
+                scheduler.shutdown();
+            }, 120, TimeUnit.SECONDS);
+            System.out.println("Done");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+     private boolean check_Email() {
+
+        String checkEmail = txtmail.getText(); // Lấy email từ txtEmailTo
+
+        if (checkEmail.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Email đang trống!");
+            return false;
+        }
+
+        // Biểu thức chính quy để kiểm tra định dạng email
+        String checkFormEmail = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        // Kiểm tra định dạng email
+        if (!checkEmail.matches(checkFormEmail)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ!");
+            return false;
+        }
+
+        return true; // Trả về false nếu không tìm thấy
+    }
+      private boolean checkCodeMKM() {
+        String code = this.txtcode.getText();
+        if (!code.equalsIgnoreCase(this.codeMKM)) {
+            JOptionPane.showMessageDialog(this, "Bạn đã nhập sai code! \n" + "Mời bạn nhập lại");
+            return false;
+        } else {
+            return true;
+        }
+    }
+      public void Rest(){
+          txtUser.setText("");
+          txtPass.setText("");
+            txtPass1.setText("");
+            txtcode.setText("");
+            txtmail.setText("");
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,10 +202,14 @@ public class Register extends javax.swing.JPanel {
         txtPass1 = new swing.MyPassword();
         txtmail = new swing.MyTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtcode = new swing.MyTextField();
+        btnguimail = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("User Name");
+        jLabel1.setText("Tên Tài Khoản");
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(69, 68, 68));
@@ -100,11 +218,17 @@ public class Register extends javax.swing.JPanel {
         jLabel2.setToolTipText("");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel3.setText("Password");
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Mật Khẩu Mới");
 
         myButton1.setBackground(new java.awt.Color(125, 229, 251));
         myButton1.setForeground(new java.awt.Color(40, 40, 40));
-        myButton1.setText("Login");
+        myButton1.setText("Lưu");
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myButton1ActionPerformed(evt);
@@ -117,9 +241,31 @@ public class Register extends javax.swing.JPanel {
         cmdBackLogin.setContentAreaFilled(false);
         cmdBackLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel4.setText("Confirm Password");
+        jLabel4.setText("Xác Nhận Mật Khẩu");
+
+        txtPass1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPass1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Email");
+
+        jLabel6.setText("Code");
+
+        btnguimail.setText("Gửi");
+        btnguimail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguimailActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Xác Nhận ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,24 +273,35 @@ public class Register extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmdBackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtPass1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(myButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmdBackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(txtPass1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnguimail))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,91 +318,86 @@ public class Register extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnguimail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(28, 28, 28)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(cmdBackLogin)
-                .addGap(30, 30, 30))
+                .addGap(18, 18, 18)
+                .addComponent(cmdBackLogin))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
-        Forgot_MK fg = readform();
-
-        if (!checkEmail()) {
+              if(txtPass.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this,"Bạn không được bỏ trống MK Mới");
             return;
-        } else {
-
-            if (!FogotRepo.getuser(fg)) {
-                JOptionPane.showMessageDialog(this, "Mã nhân viên không tồn tại!");
-            } else {
-                if (txtPass.getText().equals(txtPass1.getText())) {
-                    if (FogotRepo.updatepass(fg) > 0) {
-                        JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
-                        final String from = "manhcuong20054@gmail.com";
-                        final String pass = "vrgpkogcovwokifq";
-                        final String to = txtmail.getText();
-                        //Properties: khai báo các thuộc tính
-                        Properties prop = new Properties();
-                        prop.put("mail.smtp.host", "smtp.gmail.com");//SMTP HOST
-                        prop.put("mail.smtp.port", "587");//TLS=587,SSL=465
-                        prop.put("mail.smtp.auth", "true");
-                        prop.put("mail.smtp.starttls.enable", "true");
-                        //gửi mail
-
-                        Authenticator auth;
-                        auth = new Authenticator() {
-                            @Override
-                            protected PasswordAuthentication getPasswordAuthentication() {
-                                return new PasswordAuthentication(from, pass);
-                            }
-
-                        };
-                        // phiên làm  việc
-                        Session session = Session.getInstance(prop, auth);
-                        MimeMessage msg = new MimeMessage(session);
-                        try {
-                            msg.addHeader("Content-type", "text; charset=UTF-8");
-                            //người gửi
-                            msg.setFrom(from);
-                            //người nhận
-                            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-                            //tiêu đề 
-                            msg.setSubject("Gửi mật khẩu");
-                            //quy định ngày gửi
-                            msg.setSentDate(new Date());
-                            //quy định email nhận phản hồi
-                            //   msg.setReplyTo(null);
-                            //nội dung
-                            msg.setText("Mật khẩu được đặt lại là: " + txtPass1.getText(), "UTF-8");
-
-                            Transport.send(msg);
-
-                        } catch (Exception e) {
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "nhân viên không tồn tại Conform pass world không khớp!");
-                }
-            }
-
         }
+        if(txtPass1.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this,"Bạn không được bỏ trống XN Mật khẩu");
+            return;
+        }
+        if(!txtPass.getText().equals(txtPass1.getText())){
+            JOptionPane.showMessageDialog(this,"Mật khẩu và Xác nhận MK phải trùng khớp");
+            return;
+        }
+        JOptionPane.showMessageDialog(this,FogotRepo.UpdateMatKhauTheoEmail(txtPass1.getText(), txtUser.getText()) );
+this.Rest();
     }//GEN-LAST:event_myButton1ActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActionPerformed
+
+    private void txtPass1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPass1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPass1ActionPerformed
+
+    private void btnguimailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguimailActionPerformed
+        // TODO add your handling code here:
+         if (check_Email() == true) {
+            Gui_Email();
+        } else {
+            JOptionPane.showMessageDialog(this,"Mời bạn thử lại");
+        }
+    }//GEN-LAST:event_btnguimailActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          if (check_Email() == true && checkCodeMKM() == true) {
+            JOptionPane.showMessageDialog(this,"Xác nhận thành công");
+            txtPass.setEnabled(true);
+            txtPass1.setEnabled(true);
+        }else{
+            txtcode.setText("");
+            JOptionPane.showMessageDialog(this,"Xác nhận thất bại");
+            return;
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnguimail;
     private javax.swing.JButton cmdBackLogin;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private swing.MyButton myButton1;
     private swing.MyPassword txtPass;
     private swing.MyPassword txtPass1;
     private swing.MyTextField txtUser;
+    private swing.MyTextField txtcode;
     private swing.MyTextField txtmail;
     // End of variables declaration//GEN-END:variables
 }

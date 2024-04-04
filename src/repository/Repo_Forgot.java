@@ -15,31 +15,40 @@ import utility.DBConnect;
  * @author cuong
  */
 public class Repo_Forgot {
-       public int updatepass(Forgot_MK fgp) {
+      public int UpdateMatKhauTheoEmail(String matKhau, String email) {
+        Connection conn = null;
+        PreparedStatement sttm = null;
         try {
-            Connection con = DBConnect.getConnection();
-            String up = "UPDATE taikhoan SET MATKHAU = ? WHERE tentk = ?  ";
-            PreparedStatement ps = con.prepareStatement(up);
-            ps.setString(2, fgp.getTentk());
-            ps.setString(1, fgp.getMatkhau());
-            return ps.executeUpdate();
+            String sSQL = "UPDATE TaiKhoan SET MatKhau=?\n"
+                    + "WHERE tentk=?";
+            conn = DBConnect.getConnection();
+            sttm = conn.prepareStatement(sSQL);
+            sttm.setString(1, matKhau);
+            sttm.setString(2, email);
+            return sttm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
         }
-    }
-        public boolean getuser(Forgot_MK fgp) {
         try {
-            Connection con = DBConnect.getConnection();
-            String get = "SELECT MANhanVien FROM tbl_nhanvien WHERE MANhanvien = ?";
-            PreparedStatement ps = con.prepareStatement(get);
-            ps.setString(1, fgp.getTentk());
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
+            sttm.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return -1;
     }
+//        public boolean getuser(Forgot_MK fgp) {
+//        try {
+//            Connection con = DBConnect.getConnection();
+//            String get = "SELECT MANhanVien FROM tbl_nhanvien WHERE MANhanvien = ?";
+//            PreparedStatement ps = con.prepareStatement(get);
+//            ps.setString(1, fgp.getTentk());
+//            ResultSet rs = ps.executeQuery();
+//            return rs.next();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
 }

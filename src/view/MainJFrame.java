@@ -31,6 +31,7 @@ public final class MainJFrame extends javax.swing.JFrame {
         this.setLocation(15, 5);
         initMoving(this);
         List<DanhMucBeen> listDanhMuc = new ArrayList<>();
+        
         listDanhMuc.add(new DanhMucBeen("Bán Hàng", jpnBanHang, jlbBanHang));
         listDanhMuc.add(new DanhMucBeen("Sản Phẩm", jpnSanPham, jlbSanPham));
         listDanhMuc.add(new DanhMucBeen("Hóa Đơn", jpnHoaDon, jlbHoaDon));

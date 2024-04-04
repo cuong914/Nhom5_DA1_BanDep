@@ -61,6 +61,7 @@ public class KhuyenMaiKetNoi {
         }
         return listGG;
     }
+    
 
     public void ADDPGG(PhieuGiamGia pgg) {
         try {
@@ -82,6 +83,56 @@ public class KhuyenMaiKetNoi {
 
     }
 
+        public List<PhieuGiamGia> timKiemGGHH() {
+        listGG.clear();
+        try {
+            String sql = "select * from KhuyenMai where TrangThai ='" + 0 + "'";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PhieuGiamGia p = new PhieuGiamGia();
+                p.setHinhThuc(rs.getString(4));
+                p.setMa(rs.getString(1));
+                p.setMucGiamGia(rs.getFloat(5));
+                p.setNgayBatDau(rs.getString(6));
+                p.setNgayKetThuc(rs.getString(7));
+                p.setNgayTao(rs.getDate(8));
+                p.setSoHoaDon(rs.getInt(3));
+                p.setTen(rs.getString(2));
+                p.setTt(rs.getBoolean(9));
+                listGG.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listGG;
+    }
+            public List<PhieuGiamGia> timKiemGGHD() {
+        listGG.clear();
+        try {
+            String sql = "select * from KhuyenMai where TrangThai ='" + 1 + "'";
+            Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PhieuGiamGia p = new PhieuGiamGia();
+                p.setHinhThuc(rs.getString(4));
+                p.setMa(rs.getString(1));
+                p.setMucGiamGia(rs.getFloat(5));
+                p.setNgayBatDau(rs.getString(6));
+                p.setNgayKetThuc(rs.getString(7));
+                p.setNgayTao(rs.getDate(8));
+                p.setSoHoaDon(rs.getInt(3));
+                p.setTen(rs.getString(2));
+                p.setTt(rs.getBoolean(9));
+                listGG.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listGG;
+    }
     public void UPDATE(PhieuGiamGia pgg) {
         try {
             String sql = "update KhuyenMai set TenKM=?, SoHoaDon=?, HinhThuc=?, MucGiamGia=?, ThoiGianBatDau=?, ThoiGianKetThuc=?, TrangThai= ? where MaKM = ? ";
