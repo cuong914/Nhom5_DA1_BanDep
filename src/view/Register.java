@@ -8,8 +8,8 @@ package view;
 
 
 import java.awt.event.ActionListener;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Authenticator;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -20,7 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import model.Forgot_MK;
 import responsetory.Repo_Forgot;
-
 
 
 /**
