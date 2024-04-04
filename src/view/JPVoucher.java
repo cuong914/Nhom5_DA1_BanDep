@@ -120,9 +120,9 @@ public class JPVoucher extends javax.swing.JPanel {
             return false;
         }
         try {
-             format.setLenient(false);
+            format.setLenient(false);
             format.parse(txtNgayApDung.getText());
-           
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ngày áp dụng không đúng định dạng Năm-Tháng-Ngày.");
             return false;
@@ -152,6 +152,7 @@ public class JPVoucher extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPhieuGiamGia = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -182,6 +183,11 @@ public class JPVoucher extends javax.swing.JPanel {
         txtTimMaKM = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        rdTimKiemHD = new javax.swing.JRadioButton();
+        rdTimKiemHH = new javax.swing.JRadioButton();
+        rdTimKiemTC = new javax.swing.JRadioButton();
+
+        jScrollPane1.setBackground(new java.awt.Color(51, 51, 255));
 
         tblPhieuGiamGia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +204,7 @@ public class JPVoucher extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblPhieuGiamGia);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnTaoPhieuMoi.setText("Tạo phiếu");
@@ -235,11 +242,13 @@ public class JPVoucher extends javax.swing.JPanel {
             }
         });
 
+        rdHĐ.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdHĐ);
         rdHĐ.setText("Hoạt động");
 
         jLabel4.setText("Trạng Thái");
 
+        rdHH.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdHH);
         rdHH.setText("Hết hạn");
 
@@ -387,6 +396,30 @@ public class JPVoucher extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        buttonGroup2.add(rdTimKiemHD);
+        rdTimKiemHD.setText("Hoạt động");
+        rdTimKiemHD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdTimKiemHDMouseClicked(evt);
+            }
+        });
+
+        buttonGroup2.add(rdTimKiemHH);
+        rdTimKiemHH.setText("Hết hạn");
+        rdTimKiemHH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdTimKiemHHMouseClicked(evt);
+            }
+        });
+
+        buttonGroup2.add(rdTimKiemTC);
+        rdTimKiemTC.setText("Tất cả");
+        rdTimKiemTC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdTimKiemTCMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -399,7 +432,14 @@ public class JPVoucher extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rdTimKiemTC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdTimKiemHH)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdTimKiemHD))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addGap(256, 256, 256))
@@ -412,11 +452,16 @@ public class JPVoucher extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rdTimKiemHH)
+                        .addComponent(rdTimKiemHD)
+                        .addComponent(rdTimKiemTC)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -442,12 +487,12 @@ public class JPVoucher extends javax.swing.JPanel {
         if (!validatePGG()) {
             return;
         } else {
-             for (PhieuGiamGia p : qlkm.getALL()) {
-            if (txtMaKM.getText().equals(p.getMa())) {
-                JOptionPane.showMessageDialog(this, "Mã giảm giá này đã tồn tại!");
-                return;
+            for (PhieuGiamGia p : qlkm.getALL()) {
+                if (txtMaKM.getText().equals(p.getMa())) {
+                    JOptionPane.showMessageDialog(this, "Mã giảm giá này đã tồn tại!");
+                    return;
+                }
             }
-        }
             int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm phiếu giảm giá này không ?", "Xác nhận", ConfirmationCallback.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 try {
@@ -465,18 +510,20 @@ public class JPVoucher extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTaoPhieuMoiMouseClicked
 
     private void btnSuaPhieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaPhieuMouseClicked
-        
+
         if (!validatePGG()) {
             return;
         } else {
-         int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa phiếu giảm giá này không ?", "Xác nhận", ConfirmationCallback.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {try {
-                qlkm.UPDATE(getform());
-                JOptionPane.showMessageDialog(this, "Sửa thành công");
-                loadData(qlkm.getALL());
-            } catch (Exception e) {
-            }}
-            
+            int choice = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa phiếu giảm giá này không ?", "Xác nhận", ConfirmationCallback.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                try {
+                    qlkm.UPDATE(getform());
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    loadData(qlkm.getALL());
+                } catch (Exception e) {
+                }
+            }
+
         }
 
 
@@ -506,6 +553,20 @@ public class JPVoucher extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnXoaPhieuMouseClicked
 
+    private void rdTimKiemHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdTimKiemHHMouseClicked
+
+        loadData(qlkm.timKiemGGHH());
+    }//GEN-LAST:event_rdTimKiemHHMouseClicked
+
+    private void rdTimKiemHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdTimKiemHDMouseClicked
+
+        loadData(qlkm.timKiemGGHD());
+    }//GEN-LAST:event_rdTimKiemHDMouseClicked
+
+    private void rdTimKiemTCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdTimKiemTCMouseClicked
+        loadData(qlkm.getALL());
+    }//GEN-LAST:event_rdTimKiemTCMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
@@ -514,6 +575,7 @@ public class JPVoucher extends javax.swing.JPanel {
     private javax.swing.JButton btnXoaPhieu;
     private javax.swing.JButton btntimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -529,6 +591,9 @@ public class JPVoucher extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdHH;
     private javax.swing.JRadioButton rdHĐ;
+    private javax.swing.JRadioButton rdTimKiemHD;
+    private javax.swing.JRadioButton rdTimKiemHH;
+    private javax.swing.JRadioButton rdTimKiemTC;
     private javax.swing.JTable tblPhieuGiamGia;
     private javax.swing.JTextField txtHinhThucGiamGia;
     private javax.swing.JTextField txtMaKM;
