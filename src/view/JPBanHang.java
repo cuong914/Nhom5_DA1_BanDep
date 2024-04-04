@@ -24,7 +24,6 @@ import model.QuanLyHoaDon;
 import model.KhachHang;
 import repository.QuanLyGioHang;
 import service.KhachHangService;
-import view.JPKhachHang;
 import entity.ThanhToan;
 import repository.KhuyenMaiKetNoi;
 import entity.PhieuGiamGia;
@@ -32,8 +31,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.util.List;
-
+   
 /**
  *
  * @author cuong
@@ -598,6 +596,10 @@ public class JPBanHang extends javax.swing.JPanel {
     private void btKiemTraSDTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btKiemTraSDTMouseClicked
         // TODO add your handling code here:
         String sdt = txtSoDT.getText();
+        if (!txtSoDT.getText().matches("^\\d+$")) {
+            JOptionPane.showMessageDialog(this, "SĐT không được điền chữ");
+            return;
+        }
         for (KhachHang kh : serviceKH.getAllKhachHang()) {
             if (txtSoDT.getText().equals(kh.getSdt())) {
                 txtMaKhachHang.setText(kh.getMakh());
@@ -751,6 +753,14 @@ public class JPBanHang extends javax.swing.JPanel {
         String tienKhach = txtTienKhach.getText();
         String maKM = txtKmBanHang.getText();
         String maKH = txtMaKhachHang.getText();
+        if (tblGioHang.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền sản phẩm");
+            return;
+        }
+        if (txtTienKhach.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tiền khách");
+            return;
+        }
         if (tblGioHang.getRowCount() > 0) {
             if (Integer.parseInt(tienKhach) >= Integer.parseInt(tt)) {
                 qlhd.updateMaKM(txtMaHD.getText(), Integer.parseInt(tt), maKH, maKM);
