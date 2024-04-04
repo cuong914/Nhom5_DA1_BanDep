@@ -160,7 +160,7 @@ public class HoaDonKetNoi {
       }
          public Boolean dele(String ma){
     String sql="delete HoaDonChiTiet where MaHoaDon = ?\n" +
-"delete HoaDon where MaHoaDon = ?";
+                "delete HoaDon where MaHoaDon = ?";
         try(Connection conn = con.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
            pst.setObject(1, ma);        
            pst.setObject(2, ma);        
