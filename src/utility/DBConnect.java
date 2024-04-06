@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 
 public class DBConnect {
 
-     public static final String HOSTNAME = "localhost";
+     public static final String HOSTNAME = "HoVuChien\\SQLEXPRESS";
     public static final String PORT = "1433";
-    public static final String DBNAME = "DuAn123";
-    public static final String USERNAME = "sa4";
-    public static final String PASSWORD = "1";   
+    public static final String DBNAME = "DuAn1";
+    public static final String USERNAME = "sa";
+    public static final String PASSWORD = "2004";   
     public static Connection getConnection() {
 
         // Create a variable for the connection string.
