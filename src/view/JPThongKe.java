@@ -71,7 +71,8 @@ public class JPThongKe extends javax.swing.JPanel {
         tblDTModel.setRowCount(0);
         for (ThongKeDT tk : qltk.getALLDT(item.toString())) {
             tblDTModel.addRow(new Object[]{
-                tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(), tk.getGiaGiam(), tk.getDoanhThu()
+
+                tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(),tk.getGiaGiam() , tk.getDoanhThu()
 
             });
         }
