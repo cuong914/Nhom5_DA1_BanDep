@@ -7,8 +7,10 @@ package view;
 import entity.ThongKeDT;
 import entity.ThongKeNam;
 import entity.ThongKeSP;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import repository.ThongKeKetNoi;
 
@@ -25,6 +27,7 @@ public class JPThongKe extends javax.swing.JPanel {
     DefaultTableModel tblDTModel;
     DefaultComboBoxModel<ThongKeNam> cboTKNModel = new DefaultComboBoxModel<>();
     DefaultTableModel tblSPModel = new DefaultTableModel();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public JPThongKe() {
         initComponents();
@@ -68,7 +71,11 @@ public class JPThongKe extends javax.swing.JPanel {
         tblDTModel.setRowCount(0);
         for (ThongKeDT tk : qltk.getALLDT(item.toString())) {
             tblDTModel.addRow(new Object[]{
+<<<<<<< HEAD
                 tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(),tk.getGiaGiam() , tk.getDoanhThu()
+=======
+                tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(), tk.getGiaGiam(), tk.getDoanhThu()
+>>>>>>> 24ed21fe6bc48028a04a3afc081351937d286a10
 
             });
         }
@@ -84,6 +91,7 @@ public class JPThongKe extends javax.swing.JPanel {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -114,6 +122,10 @@ public class JPThongKe extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSP = new javax.swing.JTable();
         cboSXSP = new javax.swing.JComboBox<>();
+        rdTrongNgay = new javax.swing.JRadioButton();
+        rdTrongThang = new javax.swing.JRadioButton();
+        rdTrongNam = new javax.swing.JRadioButton();
+        rdtimeTatCa = new javax.swing.JRadioButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -157,7 +169,7 @@ public class JPThongKe extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TongDoanhThu)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(51, 204, 255));
@@ -186,9 +198,9 @@ public class JPThongKe extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SoDonHang)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(51, 204, 0));
@@ -250,7 +262,7 @@ public class JPThongKe extends javax.swing.JPanel {
                 .addComponent(DoanhThuNam)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SoDoanhThuNam)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         cbTG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Theo ngày" }));
@@ -261,6 +273,11 @@ public class JPThongKe extends javax.swing.JPanel {
         });
 
         btnTKKN.setText("Tìm");
+        btnTKKN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTKKNMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Từ ngày");
 
@@ -307,12 +324,12 @@ public class JPThongKe extends javax.swing.JPanel {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNgayMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNgayMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTKKN)
+                    .addComponent(btnTKKN, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(22, 22, 22))
@@ -393,21 +410,46 @@ public class JPThongKe extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(rdTrongNgay);
+        rdTrongNgay.setText("Trong ngày");
+
+        buttonGroup1.add(rdTrongThang);
+        rdTrongThang.setText("Trong tháng");
+
+        buttonGroup1.add(rdTrongNam);
+        rdTrongNam.setText("Trong năm");
+
+        buttonGroup1.add(rdtimeTatCa);
+        rdtimeTatCa.setText("Từ trước đến nay");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(cboSXSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdTrongThang)
+                    .addComponent(rdTrongNgay)
+                    .addComponent(rdTrongNam)
+                    .addComponent(rdtimeTatCa)
+                    .addComponent(cboSXSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(17, 17, 17)
+                .addComponent(rdTrongNgay)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdTrongThang)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdTrongNam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdtimeTatCa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboSXSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -430,7 +472,7 @@ public class JPThongKe extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -444,8 +486,10 @@ public class JPThongKe extends javax.swing.JPanel {
         TongDoanhThu.setText(qltk.getDTTheoNgay().getDoanhThuDay() + " VNĐ");
         DoanhThuThang.setText("Doanh thu tháng " + qltk.getDTTheoThang().getThang());
         DoanhThuNam.setText("Doanh thu năm " + qltk.getDTTheoNam().getNam());
-        SoDoanhThuThang.setText(qltk.getDTTheoThang().getDoanhThuMonth()+" VNĐ");
-        SoDoanhThuNam.setText(qltk.getDTTheoNam().getDoanhThuYear()+" VNĐ");
+        SoDoanhThuThang.setText(qltk.getDTTheoThang().getDoanhThuMonth() + " VNĐ");
+        SoDoanhThuNam.setText(qltk.getDTTheoNam().getDoanhThuYear() + " VNĐ");
+        rdTrongThang.setText("Trong tháng " + qltk.getDTTheoThang().getThang());
+        rdTrongNam.setText("Trong năm " + qltk.getDTTheoNam().getNam());
     }
     private void cbTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTGActionPerformed
         if (cbTG.getSelectedItem().equals("Theo ngày")) {
@@ -463,11 +507,40 @@ public class JPThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbTGActionPerformed
 
+    private void btnTKKNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTKKNMouseClicked
+
+        try {
+            dateFormat.parse(txtNgayMin.getText());
+            dateFormat.parse(txtNgayMax.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng Năm-Tháng-Ngày");
+            return;
+        }
+        SoDonHang.setText(qltk.getTKDTTheoNgay(txtNgayMin.getText(), txtNgayMax.getText()).getTongHoaDon() + " Đơn");
+        TongDoanhThu.setText(qltk.getTKDTTheoNgay(txtNgayMin.getText(), txtNgayMax.getText()).getDoanhThuDay() + " VNĐ");
+    }//GEN-LAST:event_btnTKKNMouseClicked
+
     private void cboSXSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSXSPActionPerformed
-        if (cboSXSP.getSelectedIndex() == 1) {
-            loadTKSPtoTable(qltk.getAllTKSP1());
+        if (cboSXSP.getSelectedItem().equals("Số lượt mua nhiều nhất")) {
+            if (rdTrongNgay.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP1TheoNgay());
+            } else if (rdTrongThang.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP1TheoThang());
+            } else if (rdTrongNam.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP1TheoNam());
+            } else {
+                loadTKSPtoTable(qltk.getAllTKSP1());
+            }
         } else {
-            loadTKSPtoTable(qltk.getAllTKSP2());
+            if (rdTrongNgay.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP2TheoNgay());
+            } else if (rdTrongThang.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP2TheoThang());
+            } else if (rdTrongNam.isSelected() == true) {
+                loadTKSPtoTable(qltk.getAllTKSP2TheoNam());
+            } else {
+                loadTKSPtoTable(qltk.getAllTKSP2());
+            }
         }
     }//GEN-LAST:event_cboSXSPActionPerformed
 
@@ -480,6 +553,7 @@ public class JPThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel SoDonHang;
     private javax.swing.JLabel TongDoanhThu;
     private javax.swing.JButton btnTKKN;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbTG;
     private javax.swing.JComboBox<String> cboNam;
     private javax.swing.JComboBox<String> cboSXSP;
@@ -500,6 +574,10 @@ public class JPThongKe extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton rdTrongNam;
+    private javax.swing.JRadioButton rdTrongNgay;
+    private javax.swing.JRadioButton rdTrongThang;
+    private javax.swing.JRadioButton rdtimeTatCa;
     private javax.swing.JTable tblDT;
     private javax.swing.JTable tblSP;
     private javax.swing.JTextField txtNgayMax;
