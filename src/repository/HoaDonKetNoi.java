@@ -345,9 +345,9 @@ public class HoaDonKetNoi {
                 + "     KhuyenMai.MucGiamGia as mucGiam,\n"
                 + "     HoaDon.ThanhTien as thanhTien\n"
                 + " from HoaDon\n"
-                + " inner join NhanVien on HoaDon.MaNV = NhanVien.MaNV\n"
-                + " inner join KhachHang on KhachHang.MaKH = HoaDon.MaKH\n"
-                + " inner join KhuyenMai on HoaDon.MaKM = KhuyenMai.MaKM\n"
+                + " left join NhanVien on HoaDon.MaNV = NhanVien.MaNV\n"
+                + " left join KhachHang on KhachHang.MaKH = HoaDon.MaKH\n"
+                + " left join KhuyenMai on HoaDon.MaKM = KhuyenMai.MaKM\n"
                 + " where HoaDon.MaHoaDon=?";
         try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, ma);

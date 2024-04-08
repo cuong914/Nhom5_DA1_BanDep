@@ -31,7 +31,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-   
+import org.apache.commons.codec.binary.StringUtils;
+
 /**
  *
  * @author cuong
@@ -665,7 +666,7 @@ public class JPBanHang extends javax.swing.JPanel {
         ql.congSP(soLuong, ma);
         JOptionPane.showMessageDialog(this, "Thành công");
         load();
-        
+
         qlgh.xoa(ma);
         int tong = 0;
         for (GioHang gioHang : qlgh.getGioHang(txtMaHD.getText())) {
@@ -801,10 +802,10 @@ public class JPBanHang extends javax.swing.JPanel {
 //        oos.close();
         InHoaDon hoaDonInfo = qlhd.getHoaDonInfo(maHoaDon);
         try (FileWriter fw = new FileWriter("Hoa_Don_" + maHoaDon + ".txt")) {
-            fw.write(hoaDonInfo.getMaHD() + "\n"
-                    + "Ten khach hang: " + hoaDonInfo.getTenKH() + "\n"
-                    + "So dien thoai: " + hoaDonInfo.getSdt() + "\n"
-                    + "Dia chi: " + hoaDonInfo.getDiaChi() + "\n"
+            fw.write((hoaDonInfo.getMaHD() == null ? "" : hoaDonInfo.getMaHD()) + "\n"
+                    + "Ten khach hang: " + (hoaDonInfo.getTenKH() == null ? "" : hoaDonInfo.getTenKH()) + "\n"
+                    + "So dien thoai: " + (hoaDonInfo.getSdt() == null ? "" : hoaDonInfo.getSdt()) + "\n"
+                    + "Dia chi: " + (hoaDonInfo.getDiaChi() == null ? "" : hoaDonInfo.getDiaChi()) + "\n"
                     + "Ten nhan vien: " + hoaDonInfo.getTenNV() + "\n"
                     + "Ngay thanh toan: " + hoaDonInfo.getNgayThanhToan() + "\n");
             fw.write("Danh sach san pham\n");
