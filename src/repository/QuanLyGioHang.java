@@ -45,12 +45,13 @@ public class QuanLyGioHang {
 
     public Boolean themGioHang(GioHang gh, String maHD) {
         try {
-            String sql = "insert into HoaDonChiTiet(MaHoaDon,MaSP,SoLuong) values(?,?,?)";
+            String sql = "insert into HoaDonChiTiet(MaHoaDon,MaSP,SoLuong,GiaHienHanh) values(?,?,?,?)";
             Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, maHD);
             ps.setString(2, gh.getMa());
             ps.setInt(3, gh.getSoLuong());
+            ps.setFloat(4, gh.getDonGia());
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
