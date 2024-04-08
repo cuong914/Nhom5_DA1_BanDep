@@ -3,39 +3,35 @@ package view;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        //setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        setSize(Toolkit.getDefaultToolkit().getScreenSize());
         Login login = new Login();
         Register register = new Register();
-      slide = new swing.PanelSlide(); // Khởi tạo biến this.slide
-      slide.setAnimate(2);
+        slide.setAnimate(2);
         slide.init(login, register);
-        showLogin(); //
         login.addEventRegister(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //  Show register form
                 slide.show(1);
-               login.login();
-               
+                register.register();
             }
         });
-        
         register.addEventBackLogin(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 slide.show(0);
-                register.register();
+                login.login();
             }
         });
-
-       
     }
-     private void showLogin() {
+
+    private void showLogin() {
         slide.show(0); // Hiển thị giao diện đăng nhập
     }
 
@@ -59,7 +55,6 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

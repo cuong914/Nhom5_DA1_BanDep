@@ -665,7 +665,7 @@ public class JPBanHang extends javax.swing.JPanel {
         ql.congSP(soLuong, ma);
         JOptionPane.showMessageDialog(this, "Thành công");
         load();
-
+        
         qlgh.xoa(ma);
         int tong = 0;
         for (GioHang gioHang : qlgh.getGioHang(txtMaHD.getText())) {

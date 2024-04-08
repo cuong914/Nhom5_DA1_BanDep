@@ -94,7 +94,7 @@ public class KhuyenMaiKetNoi {
                 PhieuGiamGia p = new PhieuGiamGia();
                 p.setHinhThuc(rs.getString(4));
                 p.setMa(rs.getString(1));
-                p.setMucGiamGia(rs.getFloat(5));
+                p.setMucGiamGia((int) rs.getFloat(5));
                 p.setNgayBatDau(rs.getString(6));
                 p.setNgayKetThuc(rs.getString(7));
                 p.setNgayTao(rs.getDate(8));
@@ -119,7 +119,7 @@ public class KhuyenMaiKetNoi {
                 PhieuGiamGia p = new PhieuGiamGia();
                 p.setHinhThuc(rs.getString(4));
                 p.setMa(rs.getString(1));
-                p.setMucGiamGia(rs.getFloat(5));
+                p.setMucGiamGia((int) rs.getFloat(5));
                 p.setNgayBatDau(rs.getString(6));
                 p.setNgayKetThuc(rs.getString(7));
                 p.setNgayTao(rs.getDate(8));

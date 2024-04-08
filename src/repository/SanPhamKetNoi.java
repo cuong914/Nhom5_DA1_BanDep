@@ -185,7 +185,7 @@ public class SanPhamKetNoi {
             e.printStackTrace();
         }
     }
-    
+
     public int getSoLuongHienTai(String ma) {
         String sqlLaySoLuongHienTai = "select SoLuong from SanPham where MaSP=?";
         int soLuongHienTai = 0;
@@ -207,12 +207,21 @@ public class SanPhamKetNoi {
 
         try {
             int trangThai = soLuong > 0 ? 0 : 1;
-            String sql = "update HoaDonChiTiet set SoLuong = ?,TrangThai=? where MaSP=?";
             Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, soLuong);
-            ps.setInt(2, trangThai);
-            ps.setString(3, ma);
+            String sql;
+            PreparedStatement ps;
+            if (soLuong == 0) {
+                sql = "delete HoaDonChiTiet where MaSP=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, ma);
+            } else {
+                sql = "update HoaDonChiTiet set SoLuong = ?,TrangThai=? where MaSP=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, soLuong);
+                ps.setInt(2, trangThai);
+                ps.setString(3, ma);
+            }
+
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {

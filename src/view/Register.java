@@ -21,16 +21,14 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
+
 import javax.mail.PasswordAuthentication;
 import javax.mail.Authenticator;
-=======
-<<<<<<< HEAD
+
 import javax.mail.PasswordAuthentication;
 import javax.mail.Authenticator;
-=======
->>>>>>> a82c40c1ff872650d59a3adb0c1fa8999bc15688
->>>>>>> 9054fabf5863c3546be4a129c14ec34511b11ecd
+
+
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.PasswordAuthentication;

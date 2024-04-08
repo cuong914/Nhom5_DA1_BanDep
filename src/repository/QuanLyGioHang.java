@@ -42,7 +42,8 @@ public class QuanLyGioHang {
         }
         return listGioHang;
     }
-    public Boolean themGioHang(GioHang gh , String maHD){
+
+    public Boolean themGioHang(GioHang gh, String maHD) {
         try {
             String sql = "insert into HoaDonChiTiet(MaHoaDon,MaSP,SoLuong) values(?,?,?)";
             Connection conn = DBConnect.getConnection();
@@ -57,7 +58,8 @@ public class QuanLyGioHang {
         }
         return true;
     }
-     public Boolean xoa(String ma) {
+
+    public Boolean xoa(String ma) {
         try {
             String sql = "delete HoaDonChiTiet where MaSP=?";
             Connection conn = DBConnect.getConnection();
@@ -68,6 +70,23 @@ public class QuanLyGioHang {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return true;
+    }
+
+    public Boolean xoaGioHetHang(String ma, int soLuong) {
+        if (soLuong <= 0) {
+            try {
+                String sql = "delete HoaDonChiTiet where MaSP=?";
+                Connection conn = DBConnect.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, ma);
+                ps.executeUpdate();
+                conn.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
