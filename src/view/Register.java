@@ -21,13 +21,12 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
-
+import responsetory.Repo_Forgot;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Authenticator;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Authenticator;
-
 
 import java.util.Date;
 import java.util.Properties;

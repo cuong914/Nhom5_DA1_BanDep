@@ -55,6 +55,7 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+  
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
