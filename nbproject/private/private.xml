@@ -5,9 +5,12 @@
         <group>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/entity/ThongKeDT.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/Login.java</file>
+            <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/Main.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/Register.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/JPThongKe.java</file>
+            <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/repository/Repo_Login.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/repository/ThongKeKetNoi.java</file>
+            <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/model/Login_Model.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/MainJFrame.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/JPKhachHang.java</file>
         </group>

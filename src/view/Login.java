@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.GetChucVu;
@@ -39,6 +40,7 @@ public class Login extends javax.swing.JPanel {
         }
         return null;
     }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +85,11 @@ public class Login extends javax.swing.JPanel {
         myButton1.setBackground(new java.awt.Color(125, 229, 251));
         myButton1.setForeground(new java.awt.Color(40, 40, 40));
         myButton1.setText("Login");
+        myButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myButton1MouseClicked(evt);
+            }
+        });
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myButton1ActionPerformed(evt);
@@ -176,6 +183,7 @@ public class Login extends javax.swing.JPanel {
             txtUser.setText("");
             txtPass.setText("");
         } else {
+           
             JOptionPane.showMessageDialog(this, "Đăng nhập thành công với tư cách: " + returnChucVu());
             GetChucVu.setChucvu(lg.getChucVu());
             GetChucVu.setTentk(lg.getMaTK());
@@ -183,12 +191,20 @@ public class Login extends javax.swing.JPanel {
             GetChucVu.setChucvu(lg.getChucVu());
 
             MainJFrame mjfarme = new MainJFrame();
-            mjfarme.setVisible(true);
+            
+            mjfarme.setVisible(true); 
             // Đóng JFrame hoặc JPanel hiện tại
             SwingUtilities.getWindowAncestor(this).dispose();
 
         }
     }//GEN-LAST:event_myButton1ActionPerformed
+
+    private void myButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButton1MouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_myButton1MouseClicked
 
     
      public static void main(String args[]) {
