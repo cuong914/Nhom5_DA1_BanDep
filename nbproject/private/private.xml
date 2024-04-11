@@ -3,7 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/entity/ThongKeDT.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/Login.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/Main.java</file>
@@ -14,15 +13,6 @@
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/model/Login_Model.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/MainJFrame.java</file>
             <file>file:/D:/DA1/Nhom5_DA1_BanDep/Nhom5_DA1_BanDep/src/view/JPKhachHang.java</file>
-=======
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/view/Login.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/view/Main.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/entity/ThongKeSP.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/service/ThongKeService.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/repository/Repo_HoaDon.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/utility/DBConnect.java</file>
-            <file>file:/D:/DA1/Nhom5_DA1_BanDep/src/view/JPThongKe.java</file>
->>>>>>> fdf99e30b2bac58b87e1daf1ac6232a786e5ea65
         </group>
     </open-files>
 </project-private>
