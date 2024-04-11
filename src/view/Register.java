@@ -63,8 +63,8 @@ import responsetory.Repo_Forgot;
  * @author RAVEN
  */
 public class Register extends javax.swing.JPanel {
+
     Repo_Forgot FogotRepo = new Repo_Forgot();
- 
 
     /**
      * Creates new form Login
@@ -331,7 +331,7 @@ public class Register extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
               if(txtPass.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this,"Bạn không được bỏ trống MK Mới");

@@ -9,20 +9,20 @@ package entity;
  * @author Admin
  */
 public class HDCT {
-    private String mahd,masp,tensp;
-    private int soLuong ;
-    private float dongia,thanhtien;
+
+    private String mahd, masp, tensp;
+    private int soLuong;
+    private float dongia;
 
     public HDCT() {
     }
 
-    public HDCT(String mahd, String masp, String tensp, int soLuong, float dongia, float thanhtien) {
+    public HDCT(String mahd, String masp, String tensp, int soLuong, float dongia) {
         this.mahd = mahd;
         this.masp = masp;
         this.tensp = tensp;
         this.soLuong = soLuong;
         this.dongia = dongia;
-        this.thanhtien = thanhtien;
     }
 
     public String getMahd() {
@@ -65,13 +65,7 @@ public class HDCT {
         this.dongia = dongia;
     }
 
-    public float getThanhtien() {
-        return thanhtien;
+    public float thanhTien() {
+        return this.soLuong * this.dongia;
     }
-
-    public void setThanhtien(float thanhtien) {
-        this.thanhtien = thanhtien;
-    }
-    
-    
 }

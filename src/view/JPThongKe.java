@@ -90,14 +90,11 @@ public class JPThongKe extends javax.swing.JPanel {
         tblDTModel.setRowCount(0);
         for (ThongKeDT tk : qltk.getALLDT(item.toString())) {
             tblDTModel.addRow(new Object[]{
-
-
-                tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(),tk.getGiaGiam() , tk.getDoanhThu()
+                tk.getThang(), tk.getSoHoaDon(), tk.getSoSanPham(), tk.getGiaBan(), tk.getGiaGiam(), tk.getDoanhThu()
 
             });
         }
 
-    
     }
 
     /**
@@ -148,8 +145,6 @@ public class JPThongKe extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         pnlLine = new javax.swing.JPanel();
         pnlBarChart = new javax.swing.JPanel();
-        dcsTimeBeginTK = new com.toedter.calendar.JDateChooser();
-        dcsTimeEndTK = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
@@ -503,13 +498,9 @@ public class JPThongKe extends javax.swing.JPanel {
                 .addComponent(pnlBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(dcsTimeBeginTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(dcsTimeEndTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(281, 281, 281)
+                .addGap(449, 449, 449)
                 .addComponent(jButton1)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(580, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,11 +513,8 @@ public class JPThongKe extends javax.swing.JPanel {
                                 .addContainerGap()
                                 .addComponent(pnlBarChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(pnlLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dcsTimeBeginTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcsTimeEndTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 221, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)))
+                .addGap(0, 225, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel3);
@@ -620,29 +608,28 @@ public class JPThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_cboNamItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (dcsTimeBeginTK == null) {
-            JOptionPane.showMessageDialog(this, "Bạn phải chọn ngày bắt đầu");
-            return;
-        }
-        if (dcsTimeEndTK == null) {
-            JOptionPane.showMessageDialog(this, "Bạn phải chọn ngày kết thúc");
-            return;
-        }
-        Date ngayBD = dcsTimeBeginTK.getDate();
-        Date ngayKT = dcsTimeEndTK.getDate();
-        if (ngayKT.before(ngayBD)) {
-            JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc");
-            return;
-        }
-        showLineChart(ngayBD, ngayKT);
+//        if (dcsTimeBeginTK == null) {
+//            JOptionPane.showMessageDialog(this, "Bạn phải chọn ngày bắt đầu");
+//            return;
+//        }
+//        if (dcsTimeEndTK == null) {
+//            JOptionPane.showMessageDialog(this, "Bạn phải chọn ngày kết thúc");
+//            return;
+//        }
+//        Date ngayBD = dcsTimeBeginTK.getDate();
+//        Date ngayKT = dcsTimeEndTK.getDate();
+//        if (ngayKT.before(ngayBD)) {
+//            JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày kết thúc");
+//            return;
+//        }
+//        showLineChart(ngayBD, ngayKT);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-public void showLineChart(Date dateBegin, Date dateEnd) {
+    public void showLineChart(Date dateBegin, Date dateEnd) {
         //create dataset for the graph
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
 
-     
         if (dateBegin == null && dateEnd == null) {
             for (int i = 1; i <= 12; i++) {
                 dataset.setValue(serviceThongKe.getDoanhThuTheoThang(i), "monut", "T" + i);
@@ -661,7 +648,7 @@ public void showLineChart(Date dateBegin, Date dateEnd) {
                 }
             }
         }
-  
+
         //create chart
         JFreeChart linechart = ChartFactory.createLineChart("Doanh Thu", "monthly", "amount",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
@@ -695,7 +682,7 @@ public void showLineChart(Date dateBegin, Date dateEnd) {
         ChartPanel barpChartPanel = new ChartPanel(chart);
         pnlBarChart.removeAll();
         pnlBarChart.add(barpChartPanel, BorderLayout.CENTER);
-pnlBarChart.validate();
+        pnlBarChart.validate();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DoanhThuNam;
@@ -709,8 +696,6 @@ pnlBarChart.validate();
     private javax.swing.JComboBox<String> cbTG;
     private javax.swing.JComboBox<String> cboNam;
     private javax.swing.JComboBox<String> cboSXSP;
-    private com.toedter.calendar.JDateChooser dcsTimeBeginTK;
-    private com.toedter.calendar.JDateChooser dcsTimeEndTK;
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

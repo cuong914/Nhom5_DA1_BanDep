@@ -1,19 +1,19 @@
-
 package entity;
 
 import java.util.Date;
 
 public class PhieuGiamGia {
-    private String ma, ten,hinhThuc,ngayBatDau,ngayKetThuc;
+
+    private String ma, ten, hinhThuc, ngayBatDau, ngayKetThuc;
     private Date ngayTao;
     private int soHoaDon;
-    private float mucGiamGia;
+    private int mucGiamGia;
     private Boolean tt;
 
     public PhieuGiamGia() {
     }
 
-    public PhieuGiamGia(String ma, String ten, String hinhThuc, String ngayBatDau, String ngayKetThuc, Date ngayTao, int soHoaDon, float mucGiamGia, Boolean tt) {
+    public PhieuGiamGia(String ma, String ten, String hinhThuc, String ngayBatDau, String ngayKetThuc, Date ngayTao, int soHoaDon, int mucGiamGia, Boolean tt) {
         this.ma = ma;
         this.ten = ten;
         this.hinhThuc = hinhThuc;
@@ -81,11 +81,11 @@ public class PhieuGiamGia {
         this.soHoaDon = soHoaDon;
     }
 
-    public float getMucGiamGia() {
+    public int getMucGiamGia() {
         return mucGiamGia;
     }
 
-    public void setMucGiamGia(float mucGiamGia) {
+    public void setMucGiamGia(int mucGiamGia) {
         this.mucGiamGia = mucGiamGia;
     }
 
@@ -96,6 +96,5 @@ public class PhieuGiamGia {
     public void setTt(Boolean tt) {
         this.tt = tt;
     }
-    
+
 }
-  
