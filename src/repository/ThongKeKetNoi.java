@@ -36,7 +36,7 @@ public class ThongKeKetNoi {
     public List<ThongKeDT> getALLDT(String nam) {
         lstDT.clear();
         try {
-            String sql = "select MONTH(NgayTao),count(DISTINCT HoaDon.MaHoaDon), sum(SoLuong), sum(GiaHienHanh*SoLuong), sum(TongTien - ThanhTien),(SUM(GiaHienHanh*SoLuong) - sum(HoaDon.TongTien-HoaDon.ThanhTien)) from HoaDon\n"
+            String sql = "select MONTH(NgayTao),count(DISTINCT HoaDon.MaHoaDon), sum(SoLuong), sum(GiaHienHanh*SoLuong), Sum(TongTien),(SUM(GiaHienHanh*SoLuong) + sum(HoaDon.ThanhTien)) from HoaDon\n"
                     + " join HoaDonChiTiet on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon \n"
                     + " where year(NgayTao) = '" + nam + "'"
                     + " group by MONTH(NgayTao)";
@@ -372,7 +372,7 @@ public class ThongKeKetNoi {
     public ThongKe getDTTheoThang() {
         ThongKe tkt = new ThongKe();
         try {
-            String sql = "select (SUM(GiaHienHanh*SoLuong) - sum(HoaDon.TongTien-HoaDon.ThanhTien)), MONTH(GETDATE()) from HoaDon"
+            String sql = "select (SUM(GiaHienHanh*SoLuong) + sum(HoaDon.ThanhTien)), MONTH(GETDATE()) from HoaDon"
                     + " join HoaDonChiTiet on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon \n"
                     + " where MONTH(NgayTao) = MONTH(GETDATE()) and YEAR(NgayTao) = YEAR(GETDATE())";
             Connection conn = DBConnect.getConnection();
@@ -392,7 +392,7 @@ public class ThongKeKetNoi {
     public ThongKe getDTTheoNam() {
         ThongKe tkNam = new ThongKe();
         try {
-            String sql = "select (SUM(GiaHienHanh*SoLuong) - sum(HoaDon.TongTien-HoaDon.ThanhTien)), YEAR(GETDATE()) from HoaDon "
+            String sql = "select (SUM(GiaHienHanh*SoLuong) + sum(HoaDon.ThanhTien)), YEAR(GETDATE()) from HoaDon "
                     + " join HoaDonChiTiet on HoaDon.MaHoaDon = HoaDonChiTiet.MaHoaDon \n"
                     + " where YEAR(NgayTao) = YEAR(GETDATE())";
             Connection conn = DBConnect.getConnection();

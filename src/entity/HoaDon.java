@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,9 +12,10 @@ import java.util.Date;
  * @author Admin
  */
 public class HoaDon {
-    private String mahd,manv,makh,makm,maTt,masp;
-    private Date ngaytao,ngaythanhtoan;
-    private float tongtien,thanhtien;
+
+    private String mahd, manv, makh, makm, maTt, masp;
+    private Date ngaytao, ngaythanhtoan;
+    private float tongtien, thanhtien;
     private String trangThai;
 
     public HoaDon() {
@@ -44,6 +46,10 @@ public class HoaDon {
         this.tongtien = tongtien;
         this.thanhtien = thanhtien;
         this.trangThai = trangThai;
+    }
+
+    public HoaDon(String ma, String maNV, Object object, Object object0, Object object1, Object object2, LocalDate ngayTao, float TOP_ALIGNMENT, float TOP_ALIGNMENT0, String trangThai) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getMahd() {
@@ -134,4 +140,13 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
+    public String inHoaDon() {
+        return getMahd() + ": " + getManv() + ":" + getMakh()
+                + ":" + getMakm()
+                + ":" + getMaTt()
+                + ":" + getMasp() + 
+                ":" + getNgaytao() + ":"
+                + getNgaythanhtoan() + ":" + getTongtien() + ":"
+                + getThanhtien() + ":" + getTrangThai();
+    }
 }

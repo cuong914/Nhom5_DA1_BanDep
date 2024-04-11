@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package responsetory;
+package repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -100,7 +100,7 @@ public class Repo_KhachHang {
             sttm.setString(3, kh.getDiachi());
 
             sttm.setBoolean(4, kh.getTrangthai());
-             sttm.setString(5, kh.getMakh());
+            sttm.setString(5, kh.getMakh());
 
             return sttm.executeUpdate();
 
@@ -115,31 +115,33 @@ public class Repo_KhachHang {
         }
         return -1;
     }
-public int XoaKhachHang( String makh){
-        
+
+    public int XoaKhachHang(String makh) {
+
         Connection conn = null;
-         PreparedStatement  sttm = null;
-         try {
-             String sql = " delete khachhang where makh = ? ";
-             conn = DBConnect.getConnection();
-             sttm = conn.prepareStatement(sql);
-          
-              sttm.setString(1,makh);
-    
-                    return sttm.executeUpdate();
-             
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-         try {
-             sttm.close();
-             conn.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-         return 0;
+        PreparedStatement sttm = null;
+        try {
+            String sql = " delete khachhang where makh = ? ";
+            conn = DBConnect.getConnection();
+            sttm = conn.prepareStatement(sql);
+
+            sttm.setString(1, makh);
+
+            return sttm.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            sttm.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
-     public List<KhachHang> getAllKhachHangTKTheoSDT(String sdt) {
+
+    public List<KhachHang> getAllKhachHangTKTheoSDT(String sdt) {
         List<KhachHang> listNV = new ArrayList<>();
         Connection conn = null;
         PreparedStatement sttm = null;
@@ -152,12 +154,12 @@ public int XoaKhachHang( String makh){
             rs = sttm.executeQuery();
             while (rs.next()) {
                 KhachHang nv = new KhachHang();
-                 nv.setMakh(rs.getString(1));
-                  nv.setHoten(rs.getString(2));
-                   nv.setSdt(rs.getString(3));
-                    nv.setTrangthai(rs.getBoolean(5));
-                  nv.setDiachi(rs.getString(4));
-                        listNV.add(nv);
+                nv.setMakh(rs.getString(1));
+                nv.setHoten(rs.getString(2));
+                nv.setSdt(rs.getString(3));
+                nv.setTrangthai(rs.getBoolean(5));
+                nv.setDiachi(rs.getString(4));
+                listNV.add(nv);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,9 +172,9 @@ public int XoaKhachHang( String makh){
             e.printStackTrace();
         }
         return listNV;
-}
-   
-     public List<KhachHang> getAllKhachHangTKTheoMakh(String makh) {
+    }
+
+    public List<KhachHang> getAllKhachHangTKTheoMakh(String makh) {
         List<KhachHang> listNV = new ArrayList<>();
         Connection conn = null;
         PreparedStatement sttm = null;
@@ -185,12 +187,12 @@ public int XoaKhachHang( String makh){
             rs = sttm.executeQuery();
             while (rs.next()) {
                 KhachHang nv = new KhachHang();
-                 nv.setMakh(rs.getString(1));
-                  nv.setHoten(rs.getString(2));
-                   nv.setSdt(rs.getString(3));
-                    nv.setTrangthai(rs.getBoolean(5));
+                nv.setMakh(rs.getString(1));
+                nv.setHoten(rs.getString(2));
+                nv.setSdt(rs.getString(3));
+                nv.setTrangthai(rs.getBoolean(5));
                 nv.setDiachi(rs.getString(4));
-                        listNV.add(nv);
+                listNV.add(nv);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,8 +205,9 @@ public int XoaKhachHang( String makh){
             e.printStackTrace();
         }
         return listNV;
-}
-          public List<KhachHang> getAllKhachHangTKTheoHoTen(String hoten) {
+    }
+
+    public List<KhachHang> getAllKhachHangTKTheoHoTen(String hoten) {
         List<KhachHang> listNV = new ArrayList<>();
         Connection conn = null;
         PreparedStatement sttm = null;
@@ -217,12 +220,12 @@ public int XoaKhachHang( String makh){
             rs = sttm.executeQuery();
             while (rs.next()) {
                 KhachHang nv = new KhachHang();
-                 nv.setMakh(rs.getString(1));
-                  nv.setHoten(rs.getString(2));
-                   nv.setSdt(rs.getString(3));
-                    nv.setTrangthai(rs.getBoolean(5));
+                nv.setMakh(rs.getString(1));
+                nv.setHoten(rs.getString(2));
+                nv.setSdt(rs.getString(3));
+                nv.setTrangthai(rs.getBoolean(5));
                 nv.setDiachi(rs.getString(4));
-                        listNV.add(nv);
+                listNV.add(nv);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,5 +238,7 @@ public int XoaKhachHang( String makh){
             e.printStackTrace();
         }
         return listNV;
-          }
+    }
+
+   
 }
